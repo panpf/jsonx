@@ -8,16 +8,12 @@
 
 Extensions to the org.json standard library
 
-### :warning: `Warning`
-
-`Currently in the development stage, some APIs have not been tested yet, please use them carefully`
-
 ## Getting Started
 
 Add the following to your `build.gradle` file
 
 ```grovvy
-compile "me.panpf:jsonx-nojson:$lastVersion"
+implementation "me.panpf:jsonx-nojson:$lastVersion"
 ```
 
 Please replace `$lastVersion` with the latest version: [![Download][version_java_icon]][version_java_link]
@@ -36,7 +32,7 @@ This is because other platforms besides java, such as android, hive, etc., have 
 Add the following to your `build.gradle` file
 
 ```grovvy
-compile "me.panpf:jsonx-nojson-kt:$lastVersion"
+implementation "me.panpf:jsonx-nojson-kt:$lastVersion"
 ```
 
 Dependencies：
