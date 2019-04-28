@@ -104,10 +104,10 @@ Please view the [CHANGELOG.md] file
 [platform_kotlin_link]: http://kotlinlang.org
 [license_icon]: https://img.shields.io/badge/License-Apache%202-blue.svg
 [license_link]: https://www.apache.org/licenses/LICENSE-2.0
-[version_java_icon]: https://api.bintray.com/packages/panpf/maven/jsonx/images/download.svg
-[version_java_link]:https://bintray.com/panpf/maven/jsonx/_latestVersion
-[version_kotlin_icon]: https://api.bintray.com/packages/panpf/maven/jsonx-kt/images/download.svg
-[version_kotlin_link]: https://bintray.com/panpf/maven/jsonx-kt/_latestVersion
+[version_java_icon]: https://api.bintray.com/packages/panpf/maven/jsonx-nojson/images/download.svg
+[version_java_link]:https://bintray.com/panpf/maven/jsonx-nojson/_latestVersion
+[version_kotlin_icon]: https://api.bintray.com/packages/panpf/maven/jsonx-nojson-kt/images/download.svg
+[version_kotlin_link]: https://bintray.com/panpf/maven/jsonx-nojson-kt/_latestVersion
 [source_compatibility_icon]: https://img.shields.io/badge/SourceCompatibility-1.7-red.svg
 [target_compatibility_icon]: https://img.shields.io/badge/TargetCompatibility-1.7-red.svg
 [Jsonx.java]: jsonx-nojson/src/main/java/me/panpf/jsonx/Jsonx.java
