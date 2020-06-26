@@ -44,36 +44,53 @@ Please replace `$lastVersion` with the latest version: [![Download][version_kotl
 
 ## Samples
 
-Empty judgment：
+### Empty judgment：
 ```java
+assertTrue(Jsonx.isEmpty(null));
 assertTrue(Jsonx.isEmpty(""));
+assertTrue(Jsonx.isEmpty("null"));
+assertTrue(Jsonx.isEmpty("{}"));
+assertTrue(Jsonx.isEmpty("[]"));
+
 assertFalse(Jsonx.isEmpty("{\"key\":\"value\"}"));
 ```
 
-conversion：
+### conversion：
 ```
 assertEquals("[\"1\",\"2\",\"3\"]", Jsonx.toJsonArrayString(new String[]{"1", "2", "3"}));
 assertArrayEquals(new String[]{"1", "2", "3"}, Jsonx.toStringArray("[\"1\",\"2\",\"3\"]"));
 ```
 
-get/opt method multiple key support：
+### get/opt method multiple key support：
 ```
 JSONObject jsonObject = new JSONObject();
-jsonObject.put("age1", 11);
-jsonObject.put("name1", "name1");
-jsonObject.put("long1", 21L);
-jsonObject.put("boolean1", true);
-jsonObject.put("double1", 21.0);
+jsonObject.put("nick", "Tony");
+assertEquals("Tony", Jsonx.get(jsonObject, new String[]{"nick", "name"}).toString());
 
-assertEquals("Tony", Jsonx.get(jsonObject, new String[]{"age", "年龄", "name1"}).toString());
+JSONObject jsonObject2 = new JSONObject();
+jsonObject2.put("name", "Tony");
+assertEquals("Tony", Jsonx.get(jsonObject2, new String[]{"nick", "name"}).toString());
 ```
 
-format：
+### format：
 ```java
-assertEquals("{
-    \"name\":\"David\",
-    \"age\":20
-}", Jsonx.format("{\"age\":20,\"name\":\"David\"}");
+String formatted = Jsonx.format("{\"age\":20,\"name\":\"David\"}")
+System.out.println(formatted)
+```
+out:
+```
+{
+    "age":20,
+    "name":"David"
+}
+```
+
+### JSONArray Sequence support in kotlin
+```kotlin
+val jsonArray = JSONArray("[1, 2, 3, 4]")
+jsonArray.asSequence().forEach{
+    println("item: $it")
+}
 ```
 
 More features please refer to the source code [Jsonx.java] ([Test][JsonxTest.java])、[Jsonx.kt] ([Test][JsonxTest.kt])
