@@ -36,7 +36,7 @@ implementation "me.panpf:jsonx-nojson-kt:$lastVersion"
 ```
 
 Dependencies：
-* org.jetbrains.kotlin:kotlin-stdlib-jdk7: 1.3.21
+* org.jetbrains.kotlin:kotlin-stdlib-jdk7: 1.3.72
 
 Please replace `$lastVersion` with the latest version: [![Download][version_kotlin_icon]][version_kotlin_link]
 

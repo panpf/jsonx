@@ -6,6 +6,7 @@ jsonArray.asSequence().forEach{
     println("item: $it")
 }
 ```
+* upgrade: kotlin stdlib upgrade to 1.3.72
 
 ## 0.1
 first release
