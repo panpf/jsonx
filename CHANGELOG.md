@@ -7,6 +7,7 @@ jsonArray.asSequence().forEach{
 }
 ```
 * upgrade: kotlin stdlib upgrade to 1.3.72
+* upgrade: source and target version upgrade to 1.8
 
 ## 0.1
 first release

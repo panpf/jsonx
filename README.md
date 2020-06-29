@@ -125,8 +125,8 @@ Please view the [CHANGELOG.md] file
 [version_java_link]:https://bintray.com/panpf/maven/jsonx-nojson/_latestVersion
 [version_kotlin_icon]: https://api.bintray.com/packages/panpf/maven/jsonx-nojson-kt/images/download.svg
 [version_kotlin_link]: https://bintray.com/panpf/maven/jsonx-nojson-kt/_latestVersion
-[source_compatibility_icon]: https://img.shields.io/badge/SourceCompatibility-1.7-red.svg
-[target_compatibility_icon]: https://img.shields.io/badge/TargetCompatibility-1.7-red.svg
+[source_compatibility_icon]: https://img.shields.io/badge/SourceCompatibility-1.8-red.svg
+[target_compatibility_icon]: https://img.shields.io/badge/TargetCompatibility-1.8-red.svg
 [Jsonx.java]: jsonx-nojson/src/main/java/me/panpf/jsonx/Jsonx.java
 [JsonxTest.java]: jsonx-nojson/src/test/java/me/panpf/jsonx/test/JsonxTest.java
 [Jsonx.kt]: jsonx-nojson-kt/src/main/java/me/panpf/jsonxkt/Jsonx.kt
