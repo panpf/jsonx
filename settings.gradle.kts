@@ -1,1 +1,1 @@
-include(":jsonx-nojson", ":jsonx-nojson-kt")
+include(":jsonx", ":jsonx-ktx")

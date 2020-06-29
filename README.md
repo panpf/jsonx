@@ -13,7 +13,7 @@ Extensions to the org.json standard library
 Add the following to your `build.gradle` file
 
 ```grovvy
-implementation "me.panpf:jsonx-nojson:$lastVersion"
+implementation "com.github.panpf:jsonx:$lastVersion"
 ```
 
 Please replace `$lastVersion` with the latest version: [![Download][version_java_icon]][version_java_link]
@@ -32,49 +32,49 @@ This is because other platforms besides java, such as android, hive, etc., have 
 Add the following to your `build.gradle` file
 
 ```grovvy
-implementation "me.panpf:jsonx-nojson-kt:$lastVersion"
+implementation "com.github.panpf:jsonx-ktx:$lastVersion"
 ```
 
 Dependencies：
-* org.jetbrains.kotlin:kotlin-stdlib-jdk7: 1.3.72
+* org.jetbrains.kotlin:kotlin-stdlib-jdk8: 1.3.72
 
 Please replace `$lastVersion` with the latest version: [![Download][version_kotlin_icon]][version_kotlin_link]
 
-`jsonx-nojson-kt is a jsonx-nojson extension on the Kotlin platform that allows you to use jsonx-nojson more comfortably on Kotlin`
+`jsonx-ktx is a jsonx extension on the Kotlin platform that allows you to use jsonx more comfortably on Kotlin`
 
 ## Samples
 
 ### Empty judgment：
 ```java
-assertTrue(Jsonx.isEmpty(null));
-assertTrue(Jsonx.isEmpty(""));
-assertTrue(Jsonx.isEmpty("null"));
-assertTrue(Jsonx.isEmpty("{}"));
-assertTrue(Jsonx.isEmpty("[]"));
+assertTrue(Jsonx.isEmptyJSON(null));
+assertTrue(Jsonx.isEmptyJSON(""));
+assertTrue(Jsonx.isEmptyJSON("null"));
+assertTrue(Jsonx.isEmptyJSON("{}"));
+assertTrue(Jsonx.isEmptyJSON("[]"));
 
-assertFalse(Jsonx.isEmpty("{\"key\":\"value\"}"));
+assertFalse(Jsonx.isEmptyJSON("{\"key\":\"value\"}"));
 ```
 
 ### conversion：
 ```
-assertEquals("[\"1\",\"2\",\"3\"]", Jsonx.toJsonArrayString(new String[]{"1", "2", "3"}));
-assertArrayEquals(new String[]{"1", "2", "3"}, Jsonx.toStringArray("[\"1\",\"2\",\"3\"]"));
+assertEquals("[\"1\",\"2\",\"3\"]", Jsonx.toJSONArray(new String[]{"1", "2", "3"}).toString());
+assertArrayEquals(new String[]{"1", "2", "3"}, Jsonx.toStringArray(new JSONArray("[\"1\",\"2\",\"3\"]")));
 ```
 
 ### get/opt method multiple key support：
 ```
 JSONObject jsonObject = new JSONObject();
 jsonObject.put("nick", "Tony");
-assertEquals("Tony", Jsonx.get(jsonObject, new String[]{"nick", "name"}).toString());
+assertEquals("Tony", Jsonx.getWithKeys(jsonObject, new String[]{"nick", "name"}).toString());
 
 JSONObject jsonObject2 = new JSONObject();
 jsonObject2.put("name", "Tony");
-assertEquals("Tony", Jsonx.get(jsonObject2, new String[]{"nick", "name"}).toString());
+assertEquals("Tony", Jsonx.getWithKeys(jsonObject2, new String[]{"nick", "name"}).toString());
 ```
 
 ### format：
 ```java
-String formatted = Jsonx.format("{\"age\":20,\"name\":\"David\"}")
+String formatted = Jsonx.formatJSON("{\"age\":20,\"name\":\"David\"}")
 System.out.println(formatted)
 ```
 out:
@@ -121,15 +121,15 @@ Please view the [CHANGELOG.md] file
 [platform_kotlin_link]: http://kotlinlang.org
 [license_icon]: https://img.shields.io/badge/License-Apache%202-blue.svg
 [license_link]: https://www.apache.org/licenses/LICENSE-2.0
-[version_java_icon]: https://api.bintray.com/packages/panpf/maven/jsonx-nojson/images/download.svg
-[version_java_link]:https://bintray.com/panpf/maven/jsonx-nojson/_latestVersion
-[version_kotlin_icon]: https://api.bintray.com/packages/panpf/maven/jsonx-nojson-kt/images/download.svg
-[version_kotlin_link]: https://bintray.com/panpf/maven/jsonx-nojson-kt/_latestVersion
+[version_java_icon]: https://api.bintray.com/packages/panpf/maven/jsonx/images/download.svg
+[version_java_link]:https://bintray.com/panpf/maven/jsonx/_latestVersion
+[version_kotlin_icon]: https://api.bintray.com/packages/panpf/maven/jsonx-ktx/images/download.svg
+[version_kotlin_link]: https://bintray.com/panpf/maven/jsonx-ktx/_latestVersion
 [source_compatibility_icon]: https://img.shields.io/badge/SourceCompatibility-1.8-red.svg
 [target_compatibility_icon]: https://img.shields.io/badge/TargetCompatibility-1.8-red.svg
-[Jsonx.java]: jsonx-nojson/src/main/java/me/panpf/jsonx/Jsonx.java
-[JsonxTest.java]: jsonx-nojson/src/test/java/me/panpf/jsonx/test/JsonxTest.java
-[Jsonx.kt]: jsonx-nojson-kt/src/main/java/me/panpf/jsonxkt/Jsonx.kt
-[JsonxTest.kt]: jsonx-nojson-kt/src/test/java/me/panpf/jsonxkt/test/JsonxTest.kt
+[Jsonx.java]: jsonx/src/main/java/com/github/panpf/jsonx/Jsonx.java
+[JsonxTest.java]: jsonx/src/test/java/com/github/panpf/jsonx/test/JsonxTest.java
+[Jsonx.kt]: jsonx-ktx/src/main/java/com/github/panpf/jsonx/Jsonx.kt
+[JsonxTest.kt]: jsonx-ktx/src/test/java/com/github/panpf/jsonx/test/JsonxTest.kt
 
 [CHANGELOG.md]: CHANGELOG.md
