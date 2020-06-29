@@ -7,7 +7,7 @@ plugins {
     id("kotlin")
 }
 
-group = "me.panpf"
+group = "com.github.panpf"
 version = property("VERSION").toString()
 
 configure<JavaPluginConvention> {
