@@ -1,4 +1,4 @@
-## new
+## 1.0.0-alpha01
 * new: Added JSONArray sequence support in kotlin, for example:
 ```kotlin
 val jsonArray = JSONArray("[1, 2, 3, 4]")
