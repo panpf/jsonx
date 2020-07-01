@@ -96,7 +96,7 @@ inline fun String?.toJSONObjectOrNull(): JSONObject? = Jsonx.toJSONObjectOrNull(
  * Convert a object of to a JSONObject
  */
 @Throws(JSONException::class)
-inline fun <T> T.toJSONObject(toJSONObject: ToJSONObject<T>): JSONObject? = Jsonx.toJSONObject(this, toJSONObject)
+inline fun <T> T.toJSONObject(toJSONObject: ToJSONObject<T>): JSONObject = Jsonx.toJSONObject(this, toJSONObject)
 
 /**
  * Convert a object of to a JSONObject. If item is null or toJsonObjectOrNull returns null, then finally return null
