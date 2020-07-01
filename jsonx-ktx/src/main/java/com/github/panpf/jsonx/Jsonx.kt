@@ -59,32 +59,32 @@ inline fun String?.isNotJSONArray(): Boolean = Jsonx.isNotJSONArray(this)
 
 
 /**
- * If the given json string is empty, for empty example: ' ', 'null', '{}', '[]' returns true
+ * If the given json string is empty, for empty example: '{}', '[]' returns true
  */
 inline fun String?.isEmptyJSON(): Boolean = Jsonx.isEmptyJSON(this)
 
 /**
- * If the given json string is not empty, for empty example: ' ', 'null', '{}', '[]' returns true
+ * If the given json string is not empty, for empty example: '{}', '[]' returns true
  */
 inline fun String?.isNotEmptyJSON(): Boolean = Jsonx.isNotEmptyJSON(this)
 
 /**
- * If the given json string is empty, for empty example: ' ', 'null', '{}' returns true
+ * If the given json string is empty, for empty example: '{}' returns true
  */
 inline fun String?.isEmptyJSONObject(): Boolean = Jsonx.isEmptyJSONObject(this)
 
 /**
- * If the given json string is not empty, for empty example: ' ', 'null', '{}' returns true
+ * If the given json string is not empty, for empty example: '{}' returns true
  */
 inline fun String?.isNotEmptyJSONObject(): Boolean = Jsonx.isNotEmptyJSONObject(this)
 
 /**
- * If the given json string is empty, for empty example: ' ', 'null', '[]' returns true
+ * If the given json string is empty, for empty example: '[]' returns true
  */
 inline fun String?.isEmptyJSONArray(): Boolean = Jsonx.isEmptyJSONArray(this)
 
 /**
- * If the given json string is not empty, for empty example: ' ', 'null', '[]' returns true
+ * If the given json string is not empty, for empty example: '[]' returns true
  */
 inline fun String?.isNotEmptyJSONArray(): Boolean = Jsonx.isNotEmptyJSONArray(this)
 

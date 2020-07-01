@@ -110,10 +110,10 @@ public class Jsonx {
 
 
     /**
-     * If the given json string is empty, for empty example: ' ', 'null', '{}', '[]' returns true
+     * If the given json string is empty, for empty example: '{}', '[]' returns true
      */
     public static boolean isEmptyJSON(@Nullable String json) {
-        if (json == null || json.length() == 0) return true;
+        if (json == null || json.length() == 0) return false;
         int startIndex = 0;
         int endIndex = json.length();
         while ((startIndex < endIndex) && (json.charAt(startIndex) <= ' ')) {
@@ -122,38 +122,31 @@ public class Jsonx {
         while ((startIndex < endIndex) && (json.charAt(endIndex - 1) <= ' ')) {
             endIndex--;
         }
-        if (startIndex >= endIndex) return true;    // json string are all composed of blank characters
-        int finalLength = endIndex - startIndex;
-        if (finalLength == 1) {
-            return false;
-        } else if (finalLength == 4) {
-            return "null".equalsIgnoreCase(json.substring(startIndex, endIndex));
-        } else {
-            if (('{' == json.charAt(startIndex) && '}' == json.charAt(endIndex - 1)) || ('[' == json.charAt(startIndex) && ']' == json.charAt(endIndex - 1))) {
-                for (int index = startIndex + 1, end = endIndex - 1; index < end; index++) {
-                    if (json.charAt(index) > ' ') {
-                        return false;
-                    }
+        if (startIndex >= endIndex) return false;    // json string are all composed of blank characters
+        if (('{' == json.charAt(startIndex) && '}' == json.charAt(endIndex - 1)) || ('[' == json.charAt(startIndex) && ']' == json.charAt(endIndex - 1))) {
+            for (int index = startIndex + 1, end = endIndex - 1; index < end; index++) {
+                if (json.charAt(index) > ' ') {
+                    return false;
                 }
-                return true;
-            } else {
-                return false;
             }
+            return true;
+        } else {
+            return false;
         }
     }
 
     /**
-     * If the given json string is not empty, for empty example: ' ', 'null', '{}', '[]' returns true
+     * If the given json string is not empty, for empty example: '{}', '[]' returns true
      */
     public static boolean isNotEmptyJSON(@Nullable String json) {
         return !isEmptyJSON(json);
     }
 
     /**
-     * If the given json string is empty, for empty example: ' ', 'null', '{}' returns true
+     * If the given json string is empty, for empty example: '{}' returns true
      */
     public static boolean isEmptyJSONObject(@Nullable String json) {
-        if (json == null || json.length() == 0) return true;
+        if (json == null || json.length() == 0) return false;
         int startIndex = 0;
         int endIndex = json.length();
         while ((startIndex < endIndex) && (json.charAt(startIndex) <= ' ')) {
@@ -162,38 +155,31 @@ public class Jsonx {
         while ((startIndex < endIndex) && (json.charAt(endIndex - 1) <= ' ')) {
             endIndex--;
         }
-        if (startIndex >= endIndex) return true;    // json string are all composed of blank characters
-        int finalLength = endIndex - startIndex;
-        if (finalLength == 1) {
-            return false;
-        } else if (finalLength == 4) {
-            return "null".equalsIgnoreCase(json.substring(startIndex, endIndex));
-        } else {
-            if ('{' == json.charAt(startIndex) && '}' == json.charAt(endIndex - 1)) {
-                for (int index = startIndex + 1, end = endIndex - 1; index < end; index++) {
-                    if (json.charAt(index) > ' ') {
-                        return false;
-                    }
+        if (startIndex >= endIndex) return false;    // json string are all composed of blank characters
+        if ('{' == json.charAt(startIndex) && '}' == json.charAt(endIndex - 1)) {
+            for (int index = startIndex + 1, end = endIndex - 1; index < end; index++) {
+                if (json.charAt(index) > ' ') {
+                    return false;
                 }
-                return true;
-            } else {
-                return false;
             }
+            return true;
+        } else {
+            return false;
         }
     }
 
     /**
-     * If the given json string is not empty, for empty example: ' ', 'null', '{}' returns true
+     * If the given json string is not empty, for empty example: '{}' returns true
      */
     public static boolean isNotEmptyJSONObject(@Nullable String json) {
         return !isEmptyJSONObject(json);
     }
 
     /**
-     * If the given json string is empty, for empty example: ' ', 'null', '[]' returns true
+     * If the given json string is empty, for empty example: '[]' returns true
      */
     public static boolean isEmptyJSONArray(@Nullable String json) {
-        if (json == null || json.length() == 0) return true;
+        if (json == null || json.length() == 0) return false;
         int startIndex = 0;
         int endIndex = json.length();
         while ((startIndex < endIndex) && (json.charAt(startIndex) <= ' ')) {
@@ -202,28 +188,21 @@ public class Jsonx {
         while ((startIndex < endIndex) && (json.charAt(endIndex - 1) <= ' ')) {
             endIndex--;
         }
-        if (startIndex >= endIndex) return true;    // json string are all composed of blank characters
-        int finalLength = endIndex - startIndex;
-        if (finalLength == 1) {
-            return false;
-        } else if (finalLength == 4) {
-            return "null".equalsIgnoreCase(json.substring(startIndex, endIndex));
-        } else {
-            if ('[' == json.charAt(startIndex) && ']' == json.charAt(endIndex - 1)) {
-                for (int index = startIndex + 1, end = endIndex - 1; index < end; index++) {
-                    if (json.charAt(index) > ' ') {
-                        return false;
-                    }
+        if (startIndex >= endIndex) return false;    // json string are all composed of blank characters
+        if ('[' == json.charAt(startIndex) && ']' == json.charAt(endIndex - 1)) {
+            for (int index = startIndex + 1, end = endIndex - 1; index < end; index++) {
+                if (json.charAt(index) > ' ') {
+                    return false;
                 }
-                return true;
-            } else {
-                return false;
             }
+            return true;
+        } else {
+            return false;
         }
     }
 
     /**
-     * If the given json string is not empty, for empty example: ' ', 'null', '[]' returns true
+     * If the given json string is not empty, for empty example: '[]' returns true
      */
     public static boolean isNotEmptyJSONArray(@Nullable String json) {
         return !isEmptyJSONArray(json);
@@ -247,7 +226,7 @@ public class Jsonx {
     @Nullable
     public static JSONObject toJSONObjectOrNull(@Nullable String json) {
         try {
-            return isNotEmptyJSONObject(json) ? new JSONObject(json) : null;
+            return isJSONObject(json) && isNotEmptyJSONObject(json) ? new JSONObject(json) : null;
         } catch (JSONException e) {
             e.printStackTrace();
             new JSONException("error='" + e.getMessage() + "' , sourceJson='" + json + "'").printStackTrace();
@@ -289,7 +268,7 @@ public class Jsonx {
     @Nullable
     public static JSONArray toJSONArrayOrNull(@Nullable String json) {
         try {
-            return isNotEmptyJSONArray(json) ? new JSONArray(json) : null;
+            return isJSONArray(json) && isNotEmptyJSONArray(json) ? new JSONArray(json) : null;
         } catch (JSONException e) {
             e.printStackTrace();
             new JSONException("error='" + e.getMessage() + "' , sourceJson='" + json + "'").printStackTrace();
@@ -1112,8 +1091,14 @@ public class Jsonx {
      * Formatted output for easy viewing. If the json string is empty, for example: ' ', 'null', '{}', '[]', then returns null
      */
     @Nullable
-    public static String formatJSONOrNull(@Nullable String json) throws JSONException {
-        return isNotEmptyJSON(json) ? new JsonFormatter().format(json) : null;
+    public static String formatJSONOrNull(@Nullable String json) {
+        try {
+            return isJSON(json) && isNotEmptyJSON(json) ? new JsonFormatter().format(json) : null;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            new JSONException("error='" + e.getMessage() + "' , sourceJson='" + json + "'").printStackTrace();
+            return null;
+        }
     }
 
 

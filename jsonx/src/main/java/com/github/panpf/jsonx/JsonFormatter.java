@@ -45,27 +45,21 @@ public class JsonFormatter {
      */
     @NotNull
     public String format(@Nullable String json) throws JSONException {
-        if (Jsonx.isEmptyJSON(json)) {
-            if (Jsonx.isJSONArray(json)) {
-                return "[]";
-            } else if (Jsonx.isJSONObject(json)) {
-                return "{}";
+        if (Jsonx.isJSON(json)) {
+            if (Jsonx.isNotEmptyJSON(json)) {
+                if (Jsonx.isJSONObject(json)) {
+                    return format(new JSONObject(json));
+                } else if (Jsonx.isJSONArray(json)) {
+                    return format(new JSONArray(json));
+                } else {
+                    throw new JSONException("Invalid json: " + json);
+                }
             } else {
-                return "{}";
+                return json;
             }
+        } else {
+            throw new JSONException("Invalid json: " + json);
         }
-
-        try {
-            return format(new JSONObject(json));
-        } catch (JSONException ignored) {
-        }
-
-        try {
-            return format(new JSONArray(json));
-        } catch (JSONException ignored) {
-        }
-
-        throw new JSONException("Invalid json: " + json);
     }
 
     @NotNull
