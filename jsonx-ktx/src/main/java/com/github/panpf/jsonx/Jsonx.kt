@@ -80,6 +80,7 @@ inline fun String?.isNotJSONArray(): Boolean = Jsonx.isNotJSONArray(this)
 
 /* ************************************* toJsonObject ***************************************** */
 
+
 /**
  * Convert a string of to a JSONObject
  */

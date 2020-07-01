@@ -33,94 +33,214 @@ public class JsonxTest {
     @Test
     public void testIsEmptyJSON() {
         assertTrue(Jsonx.isEmptyJSON(""));
+        assertTrue(Jsonx.isEmptyJSON(" "));
+        assertTrue(Jsonx.isEmptyJSON("  "));
+        assertTrue(Jsonx.isEmptyJSON("   "));
         assertTrue(Jsonx.isEmptyJSON("{}"));
+        assertTrue(Jsonx.isEmptyJSON("{ }"));
+        assertTrue(Jsonx.isEmptyJSON(" {}  "));
         assertTrue(Jsonx.isEmptyJSON("[]"));
+        assertTrue(Jsonx.isEmptyJSON("[ ]"));
+        assertTrue(Jsonx.isEmptyJSON(" []  "));
         assertTrue(Jsonx.isEmptyJSON("null"));
+        assertFalse(Jsonx.isEmptyJSON("nu ll"));
+        assertTrue(Jsonx.isEmptyJSON(" null  "));
+        assertTrue(Jsonx.isEmptyJSON(" nUll  "));
         assertTrue(Jsonx.isEmptyJSON(null));
         assertFalse(Jsonx.isEmptyJSON("{\"key\":\"value\"}"));
+        assertFalse(Jsonx.isEmptyJSON(" {\"key\":\"value\"}  "));
 
         assertFalse(Jsonx.isNotEmptyJSON(""));
+        assertFalse(Jsonx.isNotEmptyJSON(" "));
+        assertFalse(Jsonx.isNotEmptyJSON("  "));
+        assertFalse(Jsonx.isNotEmptyJSON("   "));
         assertFalse(Jsonx.isNotEmptyJSON("{}"));
+        assertFalse(Jsonx.isNotEmptyJSON("{ }"));
+        assertFalse(Jsonx.isNotEmptyJSON(" {}  "));
         assertFalse(Jsonx.isNotEmptyJSON("[]"));
+        assertFalse(Jsonx.isNotEmptyJSON("[ ]"));
+        assertFalse(Jsonx.isNotEmptyJSON(" []  "));
         assertFalse(Jsonx.isNotEmptyJSON("null"));
+        assertTrue(Jsonx.isNotEmptyJSON("nu ll"));
+        assertFalse(Jsonx.isNotEmptyJSON(" null  "));
+        assertFalse(Jsonx.isNotEmptyJSON(" nUll  "));
         assertFalse(Jsonx.isNotEmptyJSON(null));
         assertTrue(Jsonx.isNotEmptyJSON("{\"key\":\"value\"}"));
+        assertTrue(Jsonx.isNotEmptyJSON(" {\"key\":\"value\"}  "));
     }
 
     @Test
     public void testIsEmptyJSONObject() {
         assertTrue(Jsonx.isEmptyJSONObject(""));
+        assertTrue(Jsonx.isEmptyJSONObject(" "));
+        assertTrue(Jsonx.isEmptyJSONObject("  "));
+        assertTrue(Jsonx.isEmptyJSONObject("   "));
         assertTrue(Jsonx.isEmptyJSONObject("{}"));
+        assertTrue(Jsonx.isEmptyJSONObject("{ }"));
+        assertTrue(Jsonx.isEmptyJSONObject(" {}  "));
         assertTrue(Jsonx.isEmptyJSONObject("null"));
+        assertFalse(Jsonx.isEmptyJSONObject("nu ll"));
+        assertTrue(Jsonx.isEmptyJSONObject(" null  "));
+        assertTrue(Jsonx.isEmptyJSONObject(" nUll  "));
         assertTrue(Jsonx.isEmptyJSONObject(null));
         assertFalse(Jsonx.isEmptyJSONObject("[]"));
+        assertFalse(Jsonx.isEmptyJSONObject("[ ]"));
+        assertFalse(Jsonx.isEmptyJSONObject(" []  "));
         assertFalse(Jsonx.isEmptyJSONObject("{\"key\":\"value\"}"));
+        assertFalse(Jsonx.isEmptyJSONObject(" {\"key\":\"value\"}  "));
 
         assertFalse(Jsonx.isNotEmptyJSONObject(""));
+        assertFalse(Jsonx.isNotEmptyJSONObject(" "));
+        assertFalse(Jsonx.isNotEmptyJSONObject("  "));
+        assertFalse(Jsonx.isNotEmptyJSONObject("   "));
         assertFalse(Jsonx.isNotEmptyJSONObject("{}"));
+        assertFalse(Jsonx.isNotEmptyJSONObject("{ }"));
+        assertFalse(Jsonx.isNotEmptyJSONObject(" {}  "));
         assertFalse(Jsonx.isNotEmptyJSONObject("null"));
+        assertTrue(Jsonx.isNotEmptyJSONObject("nu ll"));
+        assertFalse(Jsonx.isNotEmptyJSONObject(" null  "));
+        assertFalse(Jsonx.isNotEmptyJSONObject(" nUll  "));
         assertFalse(Jsonx.isNotEmptyJSONObject(null));
         assertTrue(Jsonx.isNotEmptyJSONObject("[]"));
+        assertTrue(Jsonx.isNotEmptyJSONObject("[ ]"));
+        assertTrue(Jsonx.isNotEmptyJSONObject(" []  "));
         assertTrue(Jsonx.isNotEmptyJSONObject("{\"key\":\"value\"}"));
+        assertTrue(Jsonx.isNotEmptyJSONObject(" {\"key\":\"value\"}  "));
     }
 
     @Test
     public void testIsEmptyJSONArray() {
         assertTrue(Jsonx.isEmptyJSONArray(""));
+        assertTrue(Jsonx.isEmptyJSONArray(" "));
+        assertTrue(Jsonx.isEmptyJSONArray("  "));
+        assertTrue(Jsonx.isEmptyJSONArray("   "));
         assertTrue(Jsonx.isEmptyJSONArray("null"));
+        assertFalse(Jsonx.isEmptyJSONArray("nu ll"));
+        assertTrue(Jsonx.isEmptyJSONArray(" null  "));
+        assertTrue(Jsonx.isEmptyJSONArray(" nUll  "));
         assertTrue(Jsonx.isEmptyJSONArray(null));
         assertTrue(Jsonx.isEmptyJSONArray("[]"));
+        assertTrue(Jsonx.isEmptyJSONArray("[ ]"));
+        assertTrue(Jsonx.isEmptyJSONArray(" []  "));
         assertFalse(Jsonx.isEmptyJSONArray("{}"));
+        assertFalse(Jsonx.isEmptyJSONArray("{ }"));
+        assertFalse(Jsonx.isEmptyJSONArray(" {}   "));
         assertFalse(Jsonx.isEmptyJSONArray("{\"key\":\"value\"}"));
+        assertFalse(Jsonx.isEmptyJSONArray(" {\"key\":\"value\"}  "));
 
         assertFalse(Jsonx.isNotEmptyJSONArray(""));
+        assertFalse(Jsonx.isNotEmptyJSONArray(" "));
+        assertFalse(Jsonx.isNotEmptyJSONArray("  "));
+        assertFalse(Jsonx.isNotEmptyJSONArray("   "));
         assertFalse(Jsonx.isNotEmptyJSONArray("null"));
+        assertTrue(Jsonx.isNotEmptyJSONArray("nu ll"));
+        assertFalse(Jsonx.isNotEmptyJSONArray(" null  "));
+        assertFalse(Jsonx.isNotEmptyJSONArray(" nUll  "));
         assertFalse(Jsonx.isNotEmptyJSONArray(null));
         assertFalse(Jsonx.isNotEmptyJSONArray("[]"));
+        assertFalse(Jsonx.isNotEmptyJSONArray("[ ]"));
+        assertFalse(Jsonx.isNotEmptyJSONArray(" []  "));
         assertTrue(Jsonx.isNotEmptyJSONArray("{}"));
+        assertTrue(Jsonx.isNotEmptyJSONArray("{ }"));
+        assertTrue(Jsonx.isNotEmptyJSONArray(" {}  "));
         assertTrue(Jsonx.isNotEmptyJSONArray("{\"key\":\"value\"}"));
+        assertTrue(Jsonx.isNotEmptyJSONArray(" {\"key\":\"value\"}  "));
     }
+
+    // todo 测试 Jsonx.isJSON()
 
     @Test
     public void testIsJSONObject() {
         assertTrue(Jsonx.isJSONObject("{\"age\":19}"));
+        assertTrue(Jsonx.isJSONObject(" {\"age\":19}  "));
         assertTrue(Jsonx.isJSONObject("{}"));
+        assertTrue(Jsonx.isJSONObject("{ }"));
+        assertTrue(Jsonx.isJSONObject(" {}  "));
         assertFalse(Jsonx.isJSONObject(null));
         assertFalse(Jsonx.isJSONObject(""));
+        assertFalse(Jsonx.isJSONObject(" "));
+        assertFalse(Jsonx.isJSONObject("  "));
+        assertFalse(Jsonx.isJSONObject("   "));
         assertFalse(Jsonx.isJSONObject("null"));
+        assertFalse(Jsonx.isJSONObject("nu ll"));
+        assertFalse(Jsonx.isJSONObject(" null  "));
+        assertFalse(Jsonx.isJSONObject(" nUll  "));
         assertFalse(Jsonx.isJSONObject("[]"));
+        assertFalse(Jsonx.isJSONObject("[ ]"));
+        assertFalse(Jsonx.isJSONObject(" []  "));
         assertFalse(Jsonx.isJSONObject("{"));
+        assertFalse(Jsonx.isJSONObject(" {  "));
         assertFalse(Jsonx.isJSONObject("}"));
+        assertFalse(Jsonx.isJSONObject(" }  "));
 
         assertFalse(Jsonx.isNotJSONObject("{\"age\":19}"));
+        assertFalse(Jsonx.isNotJSONObject(" {\"age\":19}  "));
         assertFalse(Jsonx.isNotJSONObject("{}"));
+        assertFalse(Jsonx.isNotJSONObject("{ }"));
+        assertFalse(Jsonx.isNotJSONObject(" {}  "));
         assertTrue(Jsonx.isNotJSONObject(null));
         assertTrue(Jsonx.isNotJSONObject(""));
+        assertTrue(Jsonx.isNotJSONObject(" "));
+        assertTrue(Jsonx.isNotJSONObject("  "));
+        assertTrue(Jsonx.isNotJSONObject("   "));
         assertTrue(Jsonx.isNotJSONObject("null"));
+        assertTrue(Jsonx.isNotJSONObject("nu ll"));
+        assertTrue(Jsonx.isNotJSONObject(" null  "));
+        assertTrue(Jsonx.isNotJSONObject(" nUll  "));
         assertTrue(Jsonx.isNotJSONObject("[]"));
+        assertTrue(Jsonx.isNotJSONObject("[ ]"));
+        assertTrue(Jsonx.isNotJSONObject(" []  "));
         assertTrue(Jsonx.isNotJSONObject("{"));
+        assertTrue(Jsonx.isNotJSONObject(" {  "));
         assertTrue(Jsonx.isNotJSONObject("}"));
+        assertTrue(Jsonx.isNotJSONObject(" }  "));
     }
 
     @Test
     public void testIsJSONArray() {
         assertTrue(Jsonx.isJSONArray("[19,20]"));
+        assertTrue(Jsonx.isJSONArray(" [19,20]  "));
         assertTrue(Jsonx.isJSONArray("[]"));
+        assertTrue(Jsonx.isJSONArray("[ ]"));
+        assertTrue(Jsonx.isJSONArray(" []  "));
         assertFalse(Jsonx.isJSONArray(null));
         assertFalse(Jsonx.isJSONArray(""));
+        assertFalse(Jsonx.isJSONArray(" "));
+        assertFalse(Jsonx.isJSONArray("  "));
+        assertFalse(Jsonx.isJSONArray("   "));
         assertFalse(Jsonx.isJSONArray("null"));
+        assertFalse(Jsonx.isJSONArray("nu ll"));
+        assertFalse(Jsonx.isJSONArray(" null  "));
+        assertFalse(Jsonx.isJSONArray(" nUll  "));
         assertFalse(Jsonx.isJSONArray("{}"));
+        assertFalse(Jsonx.isJSONArray("{ }"));
+        assertFalse(Jsonx.isJSONArray(" {}  "));
         assertFalse(Jsonx.isJSONArray("["));
+        assertFalse(Jsonx.isJSONArray(" [  "));
         assertFalse(Jsonx.isJSONArray("]"));
+        assertFalse(Jsonx.isJSONArray(" ]  "));
 
         assertFalse(Jsonx.isNotJSONArray("[19,20]"));
+        assertFalse(Jsonx.isNotJSONArray(" [19,20]  "));
         assertFalse(Jsonx.isNotJSONArray("[]"));
+        assertFalse(Jsonx.isNotJSONArray("[ ]"));
+        assertFalse(Jsonx.isNotJSONArray(" []  "));
         assertTrue(Jsonx.isNotJSONArray(null));
         assertTrue(Jsonx.isNotJSONArray(""));
+        assertTrue(Jsonx.isNotJSONArray(" "));
+        assertTrue(Jsonx.isNotJSONArray("  "));
+        assertTrue(Jsonx.isNotJSONArray("   "));
         assertTrue(Jsonx.isNotJSONArray("null"));
+        assertTrue(Jsonx.isNotJSONArray("nu ll"));
+        assertTrue(Jsonx.isNotJSONArray(" null  "));
+        assertTrue(Jsonx.isNotJSONArray(" nUll  "));
         assertTrue(Jsonx.isNotJSONArray("{}"));
+        assertTrue(Jsonx.isNotJSONArray("{ }"));
+        assertTrue(Jsonx.isNotJSONArray(" {}  "));
         assertTrue(Jsonx.isNotJSONArray("["));
+        assertTrue(Jsonx.isNotJSONArray(" [  "));
         assertTrue(Jsonx.isNotJSONArray("]"));
+        assertTrue(Jsonx.isNotJSONArray(" ]  "));
     }
 
     @Test

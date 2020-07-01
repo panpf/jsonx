@@ -40,10 +40,33 @@ public class Jsonx {
      * If the given json string is empty, for empty example: ' ', 'null', '{}', '[]' returns true
      */
     public static boolean isEmptyJSON(@Nullable String json) {
-        if (json == null) return true;
-        // todo 优化一下，trim 代价有些大
-        json = json.trim();
-        return "".equals(json) || "null".equalsIgnoreCase(json) || "{}".equalsIgnoreCase(json) || "[]".equals(json);
+        if (json == null || json.length() == 0) return true;
+        int startIndex = 0;
+        int endIndex = json.length();
+        while ((startIndex < endIndex) && (json.charAt(startIndex) <= ' ')) {
+            startIndex++;
+        }
+        while ((startIndex < endIndex) && (json.charAt(endIndex - 1) <= ' ')) {
+            endIndex--;
+        }
+        if (startIndex >= endIndex) return true;    // json string are all composed of blank characters
+        int finalLength = endIndex - startIndex;
+        if (finalLength == 1) {
+            return false;
+        } else if (finalLength == 4) {
+            return "null".equalsIgnoreCase(json.substring(startIndex, endIndex));
+        } else {
+            if (('{' == json.charAt(startIndex) && '}' == json.charAt(endIndex - 1)) || ('[' == json.charAt(startIndex) && ']' == json.charAt(endIndex - 1))) {
+                for (int index = startIndex + 1, end = endIndex - 1; index < end; index++) {
+                    if (json.charAt(index) > ' ') {
+                        return false;
+                    }
+                }
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 
     /**
@@ -57,9 +80,33 @@ public class Jsonx {
      * If the given json string is empty, for empty example: ' ', 'null', '{}' returns true
      */
     public static boolean isEmptyJSONObject(@Nullable String json) {
-        if (json == null) return true;
-        json = json.trim();
-        return "".equals(json) || "null".equalsIgnoreCase(json) || "{}".equalsIgnoreCase(json);
+        if (json == null || json.length() == 0) return true;
+        int startIndex = 0;
+        int endIndex = json.length();
+        while ((startIndex < endIndex) && (json.charAt(startIndex) <= ' ')) {
+            startIndex++;
+        }
+        while ((startIndex < endIndex) && (json.charAt(endIndex - 1) <= ' ')) {
+            endIndex--;
+        }
+        if (startIndex >= endIndex) return true;    // json string are all composed of blank characters
+        int finalLength = endIndex - startIndex;
+        if (finalLength == 1) {
+            return false;
+        } else if (finalLength == 4) {
+            return "null".equalsIgnoreCase(json.substring(startIndex, endIndex));
+        } else {
+            if ('{' == json.charAt(startIndex) && '}' == json.charAt(endIndex - 1)) {
+                for (int index = startIndex + 1, end = endIndex - 1; index < end; index++) {
+                    if (json.charAt(index) > ' ') {
+                        return false;
+                    }
+                }
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 
     /**
@@ -73,9 +120,33 @@ public class Jsonx {
      * If the given json string is empty, for empty example: ' ', 'null', '[]' returns true
      */
     public static boolean isEmptyJSONArray(@Nullable String json) {
-        if (json == null) return true;
-        json = json.trim();
-        return "".equals(json) || "null".equalsIgnoreCase(json) || "[]".equals(json);
+        if (json == null || json.length() == 0) return true;
+        int startIndex = 0;
+        int endIndex = json.length();
+        while ((startIndex < endIndex) && (json.charAt(startIndex) <= ' ')) {
+            startIndex++;
+        }
+        while ((startIndex < endIndex) && (json.charAt(endIndex - 1) <= ' ')) {
+            endIndex--;
+        }
+        if (startIndex >= endIndex) return true;    // json string are all composed of blank characters
+        int finalLength = endIndex - startIndex;
+        if (finalLength == 1) {
+            return false;
+        } else if (finalLength == 4) {
+            return "null".equalsIgnoreCase(json.substring(startIndex, endIndex));
+        } else {
+            if ('[' == json.charAt(startIndex) && ']' == json.charAt(endIndex - 1)) {
+                for (int index = startIndex + 1, end = endIndex - 1; index < end; index++) {
+                    if (json.charAt(index) > ' ') {
+                        return false;
+                    }
+                }
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 
     /**
@@ -89,9 +160,17 @@ public class Jsonx {
      * Return true if the given json string is a json object
      */
     public static boolean isJSONObject(@Nullable String json) {
-        if (json == null) return false;
-        json = json.trim();
-        return json.startsWith("{") && json.endsWith("}");
+        if (json == null || json.length() == 0) return false;
+        int startIndex = 0;
+        int endIndex = json.length();
+        while ((startIndex < endIndex) && (json.charAt(startIndex) <= ' ')) {
+            startIndex++;
+        }
+        while ((startIndex < endIndex) && (json.charAt(endIndex - 1) <= ' ')) {
+            endIndex--;
+        }
+        if (startIndex >= endIndex) return false;    // json string are all composed of blank characters
+        return '{' == json.charAt(startIndex) && '}' == json.charAt(endIndex - 1);
     }
 
     /**
@@ -105,9 +184,17 @@ public class Jsonx {
      * Return true if the given json string is a json array
      */
     public static boolean isJSONArray(@Nullable String json) {
-        if (json == null) return false;
-        json = json.trim();
-        return json.startsWith("[") && json.endsWith("]");
+        if (json == null || json.length() == 0) return false;
+        int startIndex = 0;
+        int endIndex = json.length();
+        while ((startIndex < endIndex) && (json.charAt(startIndex) <= ' ')) {
+            startIndex++;
+        }
+        while ((startIndex < endIndex) && (json.charAt(endIndex - 1) <= ' ')) {
+            endIndex--;
+        }
+        if (startIndex >= endIndex) return false;    // json string are all composed of blank characters
+        return '[' == json.charAt(startIndex) && ']' == json.charAt(endIndex - 1);
     }
 
     /**

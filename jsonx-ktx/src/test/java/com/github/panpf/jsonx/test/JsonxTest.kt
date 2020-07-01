@@ -29,89 +29,214 @@ class JsonxTest {
     @Test
     fun testIsEmptyJSON() {
         assertTrue("".isEmptyJSON())
+        assertTrue(" ".isEmptyJSON())
+        assertTrue("  ".isEmptyJSON())
+        assertTrue("   ".isEmptyJSON())
         assertTrue("{}".isEmptyJSON())
+        assertTrue("{ }".isEmptyJSON())
+        assertTrue(" {}  ".isEmptyJSON())
         assertTrue("[]".isEmptyJSON())
+        assertTrue("[ ]".isEmptyJSON())
+        assertTrue(" []  ".isEmptyJSON())
         assertTrue("null".isEmptyJSON())
+        assertFalse("nu ll".isEmptyJSON())
+        assertTrue(" null  ".isEmptyJSON())
+        assertTrue(" nUll  ".isEmptyJSON())
         assertTrue((null as String?).isEmptyJSON())
         assertFalse("{\"key\":\"value\"}".isEmptyJSON())
+        assertFalse(" {\"key\":\"value\"}  ".isEmptyJSON())
+
         assertFalse("".isNotEmptyJSON())
+        assertFalse(" ".isNotEmptyJSON())
+        assertFalse("  ".isNotEmptyJSON())
+        assertFalse("   ".isNotEmptyJSON())
         assertFalse("{}".isNotEmptyJSON())
+        assertFalse("{ }".isNotEmptyJSON())
+        assertFalse(" {}  ".isNotEmptyJSON())
         assertFalse("[]".isNotEmptyJSON())
+        assertFalse("[ ]".isNotEmptyJSON())
+        assertFalse(" []  ".isNotEmptyJSON())
         assertFalse("null".isNotEmptyJSON())
+        assertTrue("nu ll".isNotEmptyJSON())
+        assertFalse(" null  ".isNotEmptyJSON())
+        assertFalse(" nUll  ".isNotEmptyJSON())
         assertFalse((null as String?).isNotEmptyJSON())
         assertTrue("{\"key\":\"value\"}".isNotEmptyJSON())
+        assertTrue(" {\"key\":\"value\"}  ".isNotEmptyJSON())
     }
 
     @Test
     fun testIsEmptyJSONObject() {
         assertTrue("".isEmptyJSONObject())
+        assertTrue(" ".isEmptyJSONObject())
+        assertTrue("  ".isEmptyJSONObject())
+        assertTrue("   ".isEmptyJSONObject())
         assertTrue("{}".isEmptyJSONObject())
+        assertTrue("{ }".isEmptyJSONObject())
+        assertTrue(" {}  ".isEmptyJSONObject())
         assertTrue("null".isEmptyJSONObject())
+        assertFalse("nu ll".isEmptyJSONObject())
+        assertTrue(" null  ".isEmptyJSONObject())
+        assertTrue(" nUll  ".isEmptyJSONObject())
         assertTrue((null as String?).isEmptyJSONObject())
         assertFalse("[]".isEmptyJSONObject())
+        assertFalse("[ ]".isEmptyJSONObject())
+        assertFalse(" []  ".isEmptyJSONObject())
         assertFalse("{\"key\":\"value\"}".isEmptyJSONObject())
+        assertFalse(" {\"key\":\"value\"}  ".isEmptyJSONObject())
+
         assertFalse("".isNotEmptyJSONObject())
+        assertFalse(" ".isNotEmptyJSONObject())
+        assertFalse("  ".isNotEmptyJSONObject())
+        assertFalse("   ".isNotEmptyJSONObject())
         assertFalse("{}".isNotEmptyJSONObject())
+        assertFalse("{ }".isNotEmptyJSONObject())
+        assertFalse(" {}  ".isNotEmptyJSONObject())
         assertFalse("null".isNotEmptyJSONObject())
+        assertTrue("nu ll".isNotEmptyJSONObject())
+        assertFalse(" null  ".isNotEmptyJSONObject())
+        assertFalse(" nUll  ".isNotEmptyJSONObject())
         assertFalse((null as String?).isNotEmptyJSONObject())
         assertTrue("[]".isNotEmptyJSONObject())
+        assertTrue("[ ]".isNotEmptyJSONObject())
+        assertTrue(" []  ".isNotEmptyJSONObject())
         assertTrue("{\"key\":\"value\"}".isNotEmptyJSONObject())
+        assertTrue(" {\"key\":\"value\"}  ".isNotEmptyJSONObject())
     }
 
     @Test
     fun testIsEmptyJSONArray() {
         assertTrue("".isEmptyJSONArray())
+        assertTrue(" ".isEmptyJSONArray())
+        assertTrue("  ".isEmptyJSONArray())
+        assertTrue("   ".isEmptyJSONArray())
         assertTrue("null".isEmptyJSONArray())
+        assertFalse("nu ll".isEmptyJSONArray())
+        assertTrue(" null  ".isEmptyJSONArray())
+        assertTrue(" nUll  ".isEmptyJSONArray())
         assertTrue((null as String?).isEmptyJSONArray())
         assertTrue("[]".isEmptyJSONArray())
+        assertTrue("[ ]".isEmptyJSONArray())
+        assertTrue(" []  ".isEmptyJSONArray())
         assertFalse("{}".isEmptyJSONArray())
+        assertFalse("{ }".isEmptyJSONArray())
+        assertFalse(" {}  ".isEmptyJSONArray())
         assertFalse("{\"key\":\"value\"}".isEmptyJSONArray())
+        assertFalse(" {\"key\":\"value\"}  ".isEmptyJSONArray())
+
         assertFalse("".isNotEmptyJSONArray())
+        assertFalse(" ".isNotEmptyJSONArray())
+        assertFalse("  ".isNotEmptyJSONArray())
+        assertFalse("   ".isNotEmptyJSONArray())
         assertFalse("null".isNotEmptyJSONArray())
+        assertTrue("nu ll".isNotEmptyJSONArray())
+        assertFalse(" null  ".isNotEmptyJSONArray())
+        assertFalse(" nUll  ".isNotEmptyJSONArray())
         assertFalse((null as String?).isNotEmptyJSONArray())
         assertFalse("[]".isNotEmptyJSONArray())
+        assertFalse("[ ]".isNotEmptyJSONArray())
+        assertFalse(" []  ".isNotEmptyJSONArray())
         assertTrue("{}".isNotEmptyJSONArray())
+        assertTrue("{ }".isNotEmptyJSONArray())
+        assertTrue(" {}  ".isNotEmptyJSONArray())
         assertTrue("{\"key\":\"value\"}".isNotEmptyJSONArray())
+        assertTrue(" {\"key\":\"value\"}  ".isNotEmptyJSONArray())
     }
+
+    // todo 测试 Jsonx.isJSON()
 
     @Test
     fun testIsJSONObject() {
         assertTrue("{\"age\":19}".isJSONObject())
+        assertTrue(" {\"age\":19}  ".isJSONObject())
         assertTrue("{}".isJSONObject())
+        assertTrue("{ }".isJSONObject())
+        assertTrue(" {}  ".isJSONObject())
         assertFalse((null as String?).isJSONObject())
         assertFalse("".isJSONObject())
+        assertFalse(" ".isJSONObject())
+        assertFalse("  ".isJSONObject())
+        assertFalse("   ".isJSONObject())
         assertFalse("null".isJSONObject())
+        assertFalse("nu ll".isJSONObject())
+        assertFalse(" null  ".isJSONObject())
+        assertFalse(" nUll  ".isJSONObject())
         assertFalse("[]".isJSONObject())
+        assertFalse("[ ]".isJSONObject())
+        assertFalse(" []  ".isJSONObject())
         assertFalse("{".isJSONObject())
+        assertFalse(" {  ".isJSONObject())
         assertFalse("}".isJSONObject())
+        assertFalse(" }  ".isJSONObject())
+
         assertFalse("{\"age\":19}".isNotJSONObject())
+        assertFalse(" {\"age\":19}  ".isNotJSONObject())
         assertFalse("{}".isNotJSONObject())
+        assertFalse("{ }".isNotJSONObject())
+        assertFalse(" {}  ".isNotJSONObject())
         assertTrue((null as String?).isNotJSONObject())
         assertTrue("".isNotJSONObject())
+        assertTrue(" ".isNotJSONObject())
+        assertTrue("  ".isNotJSONObject())
+        assertTrue("   ".isNotJSONObject())
         assertTrue("null".isNotJSONObject())
+        assertTrue("nu ll".isNotJSONObject())
+        assertTrue(" null  ".isNotJSONObject())
+        assertTrue(" nUll  ".isNotJSONObject())
         assertTrue("[]".isNotJSONObject())
+        assertTrue("[ ]".isNotJSONObject())
+        assertTrue(" []  ".isNotJSONObject())
         assertTrue("{".isNotJSONObject())
+        assertTrue(" {  ".isNotJSONObject())
         assertTrue("}".isNotJSONObject())
+        assertTrue(" }  ".isNotJSONObject())
     }
 
     @Test
     fun testIsJSONArray() {
         assertTrue("[19,20]".isJSONArray())
+        assertTrue(" [19,20]  ".isJSONArray())
         assertTrue("[]".isJSONArray())
+        assertTrue("[ ]".isJSONArray())
+        assertTrue(" []  ".isJSONArray())
         assertFalse((null as String?).isJSONArray())
         assertFalse("".isJSONArray())
+        assertFalse(" ".isJSONArray())
+        assertFalse("  ".isJSONArray())
+        assertFalse("   ".isJSONArray())
         assertFalse("null".isJSONArray())
+        assertFalse("nu ll".isJSONArray())
+        assertFalse(" null  ".isJSONArray())
+        assertFalse(" nUll  ".isJSONArray())
         assertFalse("{}".isJSONArray())
+        assertFalse("{ }".isJSONArray())
+        assertFalse(" {}  ".isJSONArray())
         assertFalse("[".isJSONArray())
+        assertFalse(" [  ".isJSONArray())
         assertFalse("]".isJSONArray())
+        assertFalse(" ]  ".isJSONArray())
+
         assertFalse("[19,20]".isNotJSONArray())
+        assertFalse(" [19,20]  ".isNotJSONArray())
         assertFalse("[]".isNotJSONArray())
+        assertFalse("[ ]".isNotJSONArray())
+        assertFalse(" []  ".isNotJSONArray())
         assertTrue((null as String?).isNotJSONArray())
         assertTrue("".isNotJSONArray())
+        assertTrue(" ".isNotJSONArray())
+        assertTrue("  ".isNotJSONArray())
+        assertTrue("   ".isNotJSONArray())
         assertTrue("null".isNotJSONArray())
+        assertTrue("nu ll".isNotJSONArray())
+        assertTrue(" null  ".isNotJSONArray())
+        assertTrue(" nUll  ".isNotJSONArray())
         assertTrue("{}".isNotJSONArray())
+        assertTrue("{ }".isNotJSONArray())
+        assertTrue(" {}  ".isNotJSONArray())
         assertTrue("[".isNotJSONArray())
+        assertTrue(" [  ".isNotJSONArray())
         assertTrue("]".isNotJSONArray())
+        assertTrue(" ]  ".isNotJSONArray())
     }
 
     @Test
@@ -136,6 +261,7 @@ class JsonxTest {
         } catch (ignored: JSONException) {
             fail()
         }
+
         assertNull("".toJSONObjectOrNull())
         assertNull(null.toJSONObjectOrNull())
         assertNull("{\"name:\"name19\",\"age\":19}".toJSONObjectOrNull())
@@ -163,6 +289,7 @@ class JsonxTest {
             e.printStackTrace()
             fail()
         }
+
         val toJsonObjectOrNull: ToJSONObjectOrNull<Bean> = ToJSONObjectOrNull { item: Bean? ->
             if (item != null && item.age != 20) {
                 JSONObject().apply {
@@ -222,6 +349,7 @@ class JsonxTest {
         } catch (ignored: JSONException) {
         }
         assertEquals("[1,7,8]", "[1, 7, 8]".toJSONArray().toString())
+
         assertNull("".toJSONArrayOrNull())
         assertNull("null".toJSONArrayOrNull())
         assertNull((null as String?).toJSONArrayOrNull())
@@ -343,6 +471,7 @@ class JsonxTest {
     fun testToJSONArrayWithIntArray() {
         assertEquals("[]", IntArray(0).toJSONArray().toString())
         assertEquals("[0,1,2,3,4,5]", intArrayOf(0, 1, 2, 3, 4, 5).toJSONArray().toString())
+
         assertNull((null as IntArray?).toJSONArrayOrNull())
         assertNull(IntArray(0).toJSONArrayOrNull())
         assertEquals("[0,1,2,3,4,5]", intArrayOf(0, 1, 2, 3, 4, 5).toJSONArrayOrNull()!!.toString())
@@ -353,6 +482,7 @@ class JsonxTest {
     fun testToJSONArrayWithDoubleArray() {
         assertEquals("[]", DoubleArray(0).toJSONArray().toString())
         assertEquals("[0.1,1.1,2.1]", doubleArrayOf(0.1, 1.1, 2.1).toJSONArray().toString())
+
         assertNull((null as DoubleArray?).toJSONArrayOrNull())
         assertNull(DoubleArray(0).toJSONArrayOrNull())
         assertEquals("[0.1,1.1,2.1]", doubleArrayOf(0.1, 1.1, 2.1).toJSONArrayOrNull()!!.toString())
@@ -362,6 +492,7 @@ class JsonxTest {
     fun testToJSONArrayWithLongArray() {
         assertEquals("[]", LongArray(0).toJSONArray().toString())
         assertEquals("[0,1,2,3,4,5]", longArrayOf(0L, 1L, 2L, 3L, 4L, 5L).toJSONArray().toString())
+
         assertNull((null as LongArray?).toJSONArrayOrNull())
         assertNull(LongArray(0).toJSONArrayOrNull())
         assertEquals("[0,1,2,3,4,5]", longArrayOf(0L, 1L, 2L, 3L, 4L, 5L).toJSONArrayOrNull()!!.toString())
@@ -371,6 +502,7 @@ class JsonxTest {
     fun testToJSONArrayWithBooleanArray() {
         assertEquals("[]", BooleanArray(0).toJSONArray().toString())
         assertEquals("[false,true,true]", booleanArrayOf(false, true, true).toJSONArray().toString())
+
         assertNull((null as BooleanArray?).toJSONArrayOrNull())
         assertNull(BooleanArray(0).toJSONArrayOrNull())
         assertEquals("[false,true,true]", booleanArrayOf(false, true, true).toJSONArrayOrNull()!!.toString())
@@ -393,6 +525,7 @@ class JsonxTest {
             }
         }
         assertEquals(bean, beanJsonObject.toBean(toBean))
+
         try {
             errorJsonObject.toBeanOrNull(toBeanOrNull)
             fail()
@@ -425,6 +558,7 @@ class JsonxTest {
         }
         assertEquals(ArrayList<Bean>(), JSONArray().toBeanList(toBean))
         assertEquals(listOf(Bean(20, "David"), Bean(21, "Kevin"), Bean(22, "Ruth")), beanJsonArray.toBeanList(toBean))
+
         assertNull(null.toBeanListOrNull(toBeanOrNull))
         assertNull(JSONArray().toBeanListOrNull(toBeanOrNull))
         assertNull(errorJsonArray.toBeanListOrNull(toBeanOrNull))
@@ -445,6 +579,7 @@ class JsonxTest {
         }
         assertArrayEquals(arrayOfNulls<String>(0), JSONArray().toStringArray())
         assertArrayEquals(arrayOf("0", "1", "2", "3", "4", "5"), stringJsonArray.toStringArray())
+
         assertNull(null.toStringArrayOrNull())
         assertNull(JSONArray().toStringArrayOrNull())
         assertNull(haveNullJsonArray.toStringArrayOrNull())
@@ -464,6 +599,7 @@ class JsonxTest {
         }
         assertArrayEquals(IntArray(0), JSONArray().toIntArray())
         assertArrayEquals(intArrayOf(0, 1, 2, 3, 4, -9999), intJsonArray.toIntArray())
+
         assertNull(null.toIntArrayOrNull())
         assertNull(JSONArray().toIntArrayOrNull())
         assertNull(haveNullJsonArray.toIntArrayOrNull())
@@ -483,6 +619,7 @@ class JsonxTest {
         }
         assertArrayEquals(DoubleArray(0), JSONArray().toDoubleArray(), 0.0)
         assertArrayEquals(doubleArrayOf(0.1, 1.1, 2.1, 3.1, 4.1, -9999.0), doubleJsonArray.toDoubleArray(), 0.0)
+
         assertNull(null.toDoubleArrayOrNull())
         assertNull(JSONArray().toDoubleArrayOrNull())
         assertNull(haveNullJsonArray.toDoubleArrayOrNull())
@@ -502,6 +639,7 @@ class JsonxTest {
         }
         assertArrayEquals(LongArray(0), JSONArray().toLongArray())
         assertArrayEquals(longArrayOf(0, 1, 2, 3, 4, -9999L), longJsonArray.toLongArray())
+
         assertNull(null.toLongArrayOrNull())
         assertNull(JSONArray().toLongArrayOrNull())
         assertNull(haveNullJsonArray.toLongArrayOrNull())
@@ -521,6 +659,7 @@ class JsonxTest {
         }
         assertArrayEquals(BooleanArray(0), JSONArray().toBooleanArray())
         assertArrayEquals(booleanArrayOf(false, true, true, false, false, true), booleanJsonArray.toBooleanArray())
+
         assertNull(null.toBooleanArrayOrNull())
         assertNull(JSONArray().toBooleanArrayOrNull())
         assertNull(haveNullJsonArray.toBooleanArrayOrNull())
