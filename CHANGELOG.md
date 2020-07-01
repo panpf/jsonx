@@ -1,6 +1,7 @@
 ## new
 * improve: Improve Jsonx's isEmptyJSON(String), isNotEmptyJSON(String), isEmptyJSONObject(String), isNotEmptyJSONObject(String), isEmptyJSONArray(String), isNotEmptyJSONArray(String), isJSONObject(String), isNotJSONObject(String), isJSONArray(String), isEmptyJSONArray( String) method performance and memory consumption, especially for long strings, the improvement is obvious
 * fix: Jsonx.kt's T.toJSONObject(ToJSONObject<T>) extension function now returns a non-null JSONObject
+* new: new add isJSON(String) and isNotJSON(String) method
 
 ## 1.0.0-alpha01
 * new: Added JSONArray sequence support in kotlin, for example:

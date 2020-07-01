@@ -28,6 +28,37 @@ import java.util.*
 
 
 /**
+ * Return true if the given json string is a json object or json array
+ */
+inline fun String?.isJSON(): Boolean = Jsonx.isJSON(this)
+
+/**
+ * Return true if the given json string is not a json object or json array
+ */
+inline fun String?.isNotJSON(): Boolean = Jsonx.isNotJSON(this)
+
+/**
+ * Return true if the given json string is a json object
+ */
+inline fun String?.isJSONObject(): Boolean = Jsonx.isJSONObject(this)
+
+/**
+ * Return true if the given json string is not a json object
+ */
+inline fun String?.isNotJSONObject(): Boolean = Jsonx.isNotJSONObject(this)
+
+/**
+ * Return true if the given json string is a json array
+ */
+inline fun String?.isJSONArray(): Boolean = Jsonx.isJSONArray(this)
+
+/**
+ * Return true if the given json string is not a json array
+ */
+inline fun String?.isNotJSONArray(): Boolean = Jsonx.isNotJSONArray(this)
+
+
+/**
  * If the given json string is empty, for empty example: ' ', 'null', '{}', '[]' returns true
  */
 inline fun String?.isEmptyJSON(): Boolean = Jsonx.isEmptyJSON(this)
@@ -56,26 +87,6 @@ inline fun String?.isEmptyJSONArray(): Boolean = Jsonx.isEmptyJSONArray(this)
  * If the given json string is not empty, for empty example: ' ', 'null', '[]' returns true
  */
 inline fun String?.isNotEmptyJSONArray(): Boolean = Jsonx.isNotEmptyJSONArray(this)
-
-/**
- * Return true if the given json string is a json object
- */
-inline fun String?.isJSONObject(): Boolean = Jsonx.isJSONObject(this)
-
-/**
- * Return true if the given json string is not a json object
- */
-inline fun String?.isNotJSONObject(): Boolean = Jsonx.isNotJSONObject(this)
-
-/**
- * Return true if the given json string is a json array
- */
-inline fun String?.isJSONArray(): Boolean = Jsonx.isJSONArray(this)
-
-/**
- * Return true if the given json string is not a json array
- */
-inline fun String?.isNotJSONArray(): Boolean = Jsonx.isNotJSONArray(this)
 
 
 /* ************************************* toJsonObject ***************************************** */
