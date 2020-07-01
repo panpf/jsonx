@@ -93,6 +93,94 @@ jsonArray.asSequence().forEach{
 }
 ```
 
+### Method List
+
+check:
+* boolean isJSON(String)
+* boolean isNotJSON(String)
+* boolean isJSONObject(String)
+* boolean isNotJSONObject(String)
+* boolean isJSONArray(String)
+* boolean isNotJSONArray(String)
+* boolean isEmptyJSON(String)
+* boolean isNotEmptyJSON(String)
+* boolean isEmptyJSONObject(String)
+* boolean isNotEmptyJSONObject(String)
+* boolean isEmptyJSONArray(String)
+* boolean isNotEmptyJSONArray(String)
+
+toJsonObject:
+* JSONObject toJSONObject(String)
+* JSONObject toJSONObjectOrNull(String)
+* <T> JSONObject toJSONObject(T, ToJSONObject<T>)
+* <T> JSONObject toJSONObjectOrNull(T, ToJSONObjectOrNull<T>)
+
+toJsonArray:
+* JSONArray toJSONArray(String)
+* JSONArray toJSONArrayOrNull(String)
+* <T> JSONArray toJSONArray(List<T>, ToJSONObject<T>)
+* <T> JSONArray toJSONArrayOrNull(List<T>, ToJSONObjectOrNull<T>)
+* <T> JSONArray toJSONArray(List<T>)
+* <T> JSONArray toJSONArrayOrNull(List<T>)
+* <T> JSONArray toJSONArray(T[] array, ToJSONObject<T>)
+* <T> JSONArray toJSONArrayOrNull(T[] array, ToJSONObjectOrNull<T>)
+* <T> JSONArray toJSONArray(T[])
+* <T> JSONArray toJSONArrayOrNull(T[])
+* JSONArray toJSONArray(int[]) 
+* JSONArray toJSONArrayOrNull(int[])
+* JSONArray toJSONArray(double[]) 
+* JSONArray toJSONArrayOrNull(double[])
+* JSONArray toJSONArray(long[])
+* JSONArray toJSONArrayOrNull(long[])
+* JSONArray toJSONArray(boolean[])
+* JSONArray toJSONArrayOrNull(boolean[])
+
+toBean:
+* <Bean> Bean toBean(JSONObject, ToBean<Bean>)
+* <Bean> ArrayList<Bean> toBeanList(JSONArray, ToBean<Bean>)
+* <Bean> ArrayList<Bean> toBeanListOrNull(JSONArray, ToBeanOrNull<Bean>)
+* String[] toStringArray(JSONArray)
+* String[] toStringArrayOrNull(JSONArray)
+* int[] toIntArray(JSONArray)
+* int[] toIntArrayOrNull(JSONArray)
+* double[] toDoubleArray(JSONArray)
+* double[] toDoubleArrayOrNull(JSONArray)
+* long[] toLongArray(JSONArray)
+* long[] toLongArrayOrNull(JSONArray)
+* boolean[] toBooleanArray(JSONArray)
+* boolean[] toBooleanArrayOrNull(JSONArray)
+
+opt and get:
+* Object optWithKeys(JSONObject, String[])
+* String optStringWithKeys(JSONObject, String[], String)
+* String optStringWithKeys(JSONObject, String[])
+* int optIntWithKeys(JSONObject, String[], int)
+* int optIntWithKeys(JSONObject, String[])
+* long optLongWithKeys(JSONObject, String[], long)
+* long optLongWithKeys(JSONObject, String[])
+* boolean optBooleanWithKeys(JSONObject, String[], boolean)
+* boolean optBooleanWithKeys(JSONObject, String[])
+* double optDoubleWithKeys(JSONObject, String[], double)
+* double optDoubleWithKeys(JSONObject, String[])
+* JSONObject optJSONObjectWithKeys(JSONObject, String[])
+* JSONArray optJSONArrayWithKeys(JSONObject, String[])
+* Object getWithKeys(JSONObject, String[])
+* String getStringWithKeys(JSONObject, String[])
+* int getIntWithKeys(JSONObject, String[])
+* long getLongWithKeys(JSONObject, String[])
+* boolean getBooleanWithKeys(JSONObject, String[])
+* double getDoubleWithKeys(JSONObject, String[])
+* JSONObject getJSONObjectWithKeys(JSONObject, String[]) 
+* JSONArray getJSONArrayWithKeys(JSONObject, String[])
+
+format:
+* String formatToString(JSONObject)
+* String formatToStringOrNull(JSONObject)
+* String formatToString(JSONArray)
+* String formatToStringOrNull(JSONArray)
+* String formatJSON(String json)
+* String formatJSONOrNull(String json)
+
 More features please refer to the source code [Jsonx.java] ([Test][JsonxTest.java])、[Jsonx.kt] ([Test][JsonxTest.kt])
 
 ## Change Log

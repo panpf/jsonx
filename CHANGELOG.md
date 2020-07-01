@@ -1,10 +1,10 @@
-## new
+## v1.0.0-alpha02
 * improve: Improve Jsonx's isEmptyJSON(String), isNotEmptyJSON(String), isEmptyJSONObject(String), isNotEmptyJSONObject(String), isEmptyJSONArray(String), isNotEmptyJSONArray(String), isJSONObject(String), isNotJSONObject(String), isJSONArray(String), isEmptyJSONArray( String) method performance and memory consumption, especially for long strings, the improvement is obvious
 * fix: Jsonx.kt's T.toJSONObject(ToJSONObject<T>) extension function now returns a non-null JSONObject
 * new: new add isJSON(String) and isNotJSON(String) method
 * fix: Fix Jsonx's isEmptyJSON(String), isEmptyJSONObject(String), isEmptyJSONArray(String) return true when json string is null or empty string or "null"
 
-## 1.0.0-alpha01
+## v1.0.0-alpha01
 * new: Added JSONArray sequence support in kotlin, for example:
 ```kotlin
 val jsonArray = JSONArray("[1, 2, 3, 4]")
@@ -19,5 +19,5 @@ jsonArray.asSequence().forEach{
 * change: jsonx-nojson-kt module name change to 'jsonx-ktx'
 * change: Jsonx fully refactored
 
-## 0.1
+## v0.1
 first release
