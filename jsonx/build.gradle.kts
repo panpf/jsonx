@@ -15,7 +15,7 @@ configure<JavaPluginConvention> {
 }
 
 dependencies {
-    implementation("org.jetbrains:annotations:${property("JETBRAINS_ANNOTATIONS_VERSION")}")
+    api("org.jetbrains:annotations:${property("JETBRAINS_ANNOTATIONS_VERSION")}")
     compileOnly("org.json:org.json:${property("JSON")}")
 
     testImplementation("junit:junit:${property("JUNIT_VERSION")}")

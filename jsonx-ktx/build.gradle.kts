@@ -25,8 +25,8 @@ tasks {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${property("KOTLIN_VERSION")}")
-    implementation(project(":jsonx"))
+    api("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${property("KOTLIN_VERSION")}")
+    api(project(":jsonx"))
     compileOnly("org.json:org.json:${property("JSON")}")
 
     testImplementation("junit:junit:${property("JUNIT_VERSION")}")
