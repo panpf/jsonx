@@ -18,6 +18,7 @@ package com.github.panpf.jsonx.test;
 
 import com.github.panpf.jsonx.*;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -323,8 +324,12 @@ public class JsonxTest {
     @Test
     public void testToJSONObjectWithT() {
         try {
-            Jsonx.toJSONObject(new Bean(19, "name19"), item -> {
-                throw new JSONException("test");
+            Jsonx.toJSONObject(new Bean(19, "name19"), new ToJSONObject<Bean>() {
+                @NotNull
+                @Override
+                public JSONObject toJSONObject(@NotNull Bean item) throws JSONException {
+                    throw new JSONException("test");
+                }
             });
             fail();
         } catch (JSONException ignored) {
@@ -332,11 +337,15 @@ public class JsonxTest {
         try {
             Assert.assertEquals(
                     "{\"name\":\"name19\",\"age\":19}",
-                    Jsonx.toJSONObject(new Bean(19, "name19"), item -> {
-                        JSONObject jsonObject = new JSONObject();
-                        jsonObject.put("age", item.age);
-                        jsonObject.put("name", item.name);
-                        return jsonObject;
+                    Jsonx.toJSONObject(new Bean(19, "name19"), new ToJSONObject<Bean>() {
+                        @NotNull
+                        @Override
+                        public JSONObject toJSONObject(@NotNull Bean item) throws JSONException {
+                            JSONObject jsonObject = new JSONObject();
+                            jsonObject.put("age", item.age);
+                            jsonObject.put("name", item.name);
+                            return jsonObject;
+                        }
                     }).toString()
             );
         } catch (JSONException e) {
@@ -344,14 +353,18 @@ public class JsonxTest {
             fail();
         }
 
-        ToJSONObjectOrNull<Bean> toJsonObjectOrNull = item -> {
-            if (item != null && item.age != 20) {
-                JSONObject jsonObject = new JSONObject();
-                jsonObject.put("age", item.age);
-                jsonObject.put("name", item.name);
-                return jsonObject;
-            } else {
-                return null;
+        ToJSONObjectOrNull<Bean> toJsonObjectOrNull = new ToJSONObjectOrNull<Bean>() {
+            @Nullable
+            @Override
+            public JSONObject toJSONObjectOrNull(@Nullable Bean item) throws JSONException {
+                if (item != null && item.age != 20) {
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put("age", item.age);
+                    jsonObject.put("name", item.name);
+                    return jsonObject;
+                } else {
+                    return null;
+                }
             }
         };
         try {
@@ -367,8 +380,12 @@ public class JsonxTest {
             fail();
         }
         try {
-            Jsonx.toJSONObjectOrNull(new Bean(19, "name19"), item -> {
-                throw new JSONException("test");
+            Jsonx.toJSONObjectOrNull(new Bean(19, "name19"), new ToJSONObjectOrNull<Bean>() {
+                @Nullable
+                @Override
+                public JSONObject toJSONObjectOrNull(@Nullable Bean item) throws JSONException {
+                    throw new JSONException("test");
+                }
             });
             fail();
         } catch (JSONException ignored) {
@@ -428,20 +445,28 @@ public class JsonxTest {
         String partUnsatisfiedBeanListJsonArrayStringOrNull = "[{\"name\":\"name20\",\"age\":20}]";
         String partNullBeanListJsonArrayStringOrNull = "[{\"name\":\"name19\",\"age\":19}]";
         String partNullBeanListJsonArrayToStringOrNull = "[\"Bean{name='name19', age=19}\"]";
-        ToJSONObject<Bean> toJsonObject = item -> {
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("age", item.age);
-            jsonObject.put("name", item.name);
-            return jsonObject;
-        };
-        ToJSONObjectOrNull<Bean> toJsonObjectOrNull = item -> {
-            if (item != null && item.age <= 20) {
+        ToJSONObject<Bean> toJsonObject = new ToJSONObject<Bean>() {
+            @NotNull
+            @Override
+            public JSONObject toJSONObject(@NotNull Bean item) throws JSONException {
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("age", item.age);
                 jsonObject.put("name", item.name);
                 return jsonObject;
-            } else {
-                return null;
+            }
+        };
+        ToJSONObjectOrNull<Bean> toJsonObjectOrNull = new ToJSONObjectOrNull<Bean>() {
+            @Nullable
+            @Override
+            public JSONObject toJSONObjectOrNull(@Nullable Bean item) throws JSONException {
+                if (item != null && item.age <= 20) {
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put("age", item.age);
+                    jsonObject.put("name", item.name);
+                    return jsonObject;
+                } else {
+                    return null;
+                }
             }
         };
 
@@ -491,20 +516,28 @@ public class JsonxTest {
         String partUnsatisfiedBeanListJsonArrayStringOrNull = "[{\"name\":\"name20\",\"age\":20}]";
         String partNullBeanListJsonArrayStringOrNull = "[{\"name\":\"name19\",\"age\":19}]";
         String partNullBeanListJsonArrayToStringOrNull = "[\"Bean{name='name19', age=19}\"]";
-        ToJSONObject<Bean> toJsonObject = item -> {
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("age", item.age);
-            jsonObject.put("name", item.name);
-            return jsonObject;
-        };
-        ToJSONObjectOrNull<Bean> toJsonObjectOrNull = item -> {
-            if (item != null && item.age <= 20) {
+        ToJSONObject<Bean> toJsonObject = new ToJSONObject<Bean>() {
+            @NotNull
+            @Override
+            public JSONObject toJSONObject(@NotNull Bean item) throws JSONException {
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("age", item.age);
                 jsonObject.put("name", item.name);
                 return jsonObject;
-            } else {
-                return null;
+            }
+        };
+        ToJSONObjectOrNull<Bean> toJsonObjectOrNull = new ToJSONObjectOrNull<Bean>() {
+            @Nullable
+            @Override
+            public JSONObject toJSONObjectOrNull(@Nullable Bean item) throws JSONException {
+                if (item != null && item.age <= 20) {
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put("age", item.age);
+                    jsonObject.put("name", item.name);
+                    return jsonObject;
+                } else {
+                    return null;
+                }
             }
         };
 
@@ -584,13 +617,23 @@ public class JsonxTest {
         JSONObject beanJsonObject = Jsonx.toJSONObject("{\"age\":20,\"name\":\"David\"}");
         JSONObject errorJsonObject = Jsonx.toJSONObject("{}");
         JSONObject unsatisfiedBeanJsonObject = Jsonx.toJSONObject("{\"age\":21,\"name\":\"David\"}");
-        ToBean<Bean> toBean = jsonObject -> new Bean(jsonObject.getInt("age"), jsonObject.getString("name"));
-        ToBeanOrNull<Bean> toBeanOrNull = jsonObject -> {
-            int age = jsonObject != null ? jsonObject.getInt("age") : -1;
-            if (jsonObject != null && age != 21) {
-                return new Bean(age, jsonObject.getString("name"));
-            } else {
-                return null;
+        ToBean<Bean> toBean = new ToBean<Bean>() {
+            @NotNull
+            @Override
+            public Bean toBean(@NotNull JSONObject jsonObject) throws JSONException {
+                return new Bean(jsonObject.getInt("age"), jsonObject.getString("name"));
+            }
+        };
+        ToBeanOrNull<Bean> toBeanOrNull = new ToBeanOrNull<Bean>() {
+            @Nullable
+            @Override
+            public Bean toBean(@Nullable JSONObject jsonObject) throws JSONException {
+                int age = jsonObject != null ? jsonObject.getInt("age") : -1;
+                if (jsonObject != null && age != 21) {
+                    return new Bean(age, jsonObject.getString("name"));
+                } else {
+                    return null;
+                }
             }
         };
 
@@ -610,16 +653,32 @@ public class JsonxTest {
     public void testToBeanList() throws JSONException {
         JSONArray beanJsonArray = Jsonx.toJSONArray("[{\"age\":20,\"name\":\"David\"},{\"age\":21,\"name\":\"Kevin\"},{\"age\":22,\"name\":\"Ruth\"}]");
         JSONArray errorJsonArray = new JSONArray("[0,1]");
-        ToBean<Bean> toBean = jsonObject -> new Bean(jsonObject.getInt("age"), jsonObject.getString("name"));
-        ToBeanOrNull<Bean> toBeanOrNull = jsonObject -> {
-            int age = jsonObject != null ? jsonObject.getInt("age") : -1;
-            if (jsonObject != null && age != 21) {
-                return new Bean(age, jsonObject.getString("name"));
-            } else {
+        ToBean<Bean> toBean = new ToBean<Bean>() {
+            @NotNull
+            @Override
+            public Bean toBean(@NotNull JSONObject jsonObject) throws JSONException {
+                return new Bean(jsonObject.getInt("age"), jsonObject.getString("name"));
+            }
+        };
+        ToBeanOrNull<Bean> toBeanOrNull = new ToBeanOrNull<Bean>() {
+            @Nullable
+            @Override
+            public Bean toBean(@Nullable JSONObject jsonObject) throws JSONException {
+                int age = jsonObject != null ? jsonObject.getInt("age") : -1;
+                if (jsonObject != null && age != 21) {
+                    return new Bean(age, jsonObject.getString("name"));
+                } else {
+                    return null;
+                }
+            }
+        };
+        ToBeanOrNull<Bean> toBeanOrNullAllNull = new ToBeanOrNull<Bean>() {
+            @Nullable
+            @Override
+            public Bean toBean(@Nullable JSONObject jsonObject) throws JSONException {
                 return null;
             }
         };
-        ToBeanOrNull<Bean> toBeanOrNullAllNull = jsonObject -> null;
 
         try {
             Jsonx.toBeanList(errorJsonArray, toBean);

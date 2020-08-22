@@ -1,3 +1,6 @@
+## new
+* downgrade: source and target Compatibility downgrade to 1.7, kotlinOptions.jvmTarget downgrade to 1.6
+
 ## v1.0.0
 
 fix:
