@@ -51,6 +51,6 @@ tasks.getByName("check").dependsOn(tasks.getByName("jacocoTestReport"))
         website = "https://github.com/panpf/jsonx"
         userOrg = localProperties.getProperty("bintray.userOrg")
         bintrayUser = localProperties.getProperty("bintray.user")
-        bintrayKey = localProperties.getProperty("bintray.apikey")
+        bintrayKey = localProperties.getProperty("bintray.apiKey")
     }
 }
