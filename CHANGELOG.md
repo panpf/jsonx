@@ -1,5 +1,6 @@
 ## new
 * change: The parameters of ToBeanOrNull and ToJSONObjectOrNull are now marked as NotNull
+* new: Added toBeanArray() and toStringArrayList() methods
 
 
 ## v1.0.1

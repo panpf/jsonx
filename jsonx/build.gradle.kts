@@ -17,6 +17,7 @@ dependencies {
 
     testImplementation("junit:junit:${property("JUNIT_VERSION")}")
     testImplementation("org.json:org.json:${property("JSON")}")
+    testImplementation("com.github.panpf.tools4j:tools4j-base64:${property("TOOLS4J")}")
 }
 
 tasks.getByName("check").dependsOn(tasks.getByName("jacocoTestReport"))

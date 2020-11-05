@@ -17,6 +17,7 @@
 package com.github.panpf.jsonx.test;
 
 import com.github.panpf.jsonx.*;
+import com.github.panpf.tools4j.base64.Base64x;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.json.JSONArray;
@@ -675,7 +676,7 @@ public class JsonxTest {
         ToBeanOrNull<Bean> toBeanOrNullAllNull = new ToBeanOrNull<Bean>() {
             @Nullable
             @Override
-            public Bean toBean(@Nullable JSONObject jsonObject) throws JSONException {
+            public Bean toBean(@Nullable JSONObject jsonObject) {
                 return null;
             }
         };
@@ -696,6 +697,52 @@ public class JsonxTest {
     }
 
     @Test
+    public void testToBeanArray() throws JSONException {
+        JSONArray beanJsonArray = Jsonx.toJSONArray("[{\"age\":20,\"name\":\"David\"},{\"age\":21,\"name\":\"Kevin\"},{\"age\":22,\"name\":\"Ruth\"}]");
+        JSONArray errorJsonArray = new JSONArray("[0,1]");
+        ToBean<Bean> toBean = new ToBean<Bean>() {
+            @NotNull
+            @Override
+            public Bean toBean(@NotNull JSONObject jsonObject) throws JSONException {
+                return new Bean(jsonObject.getInt("age"), jsonObject.getString("name"));
+            }
+        };
+        ToBeanOrNull<Bean> toBeanOrNull = new ToBeanOrNull<Bean>() {
+            @Nullable
+            @Override
+            public Bean toBean(@Nullable JSONObject jsonObject) throws JSONException {
+                int age = jsonObject != null ? jsonObject.getInt("age") : -1;
+                if (jsonObject != null && age != 21) {
+                    return new Bean(age, jsonObject.getString("name"));
+                } else {
+                    return null;
+                }
+            }
+        };
+        ToBeanOrNull<Bean> toBeanOrNullAllNull = new ToBeanOrNull<Bean>() {
+            @Nullable
+            @Override
+            public Bean toBean(@Nullable JSONObject jsonObject) {
+                return null;
+            }
+        };
+
+        try {
+            Jsonx.toBeanArray(errorJsonArray, toBean);
+            fail();
+        } catch (JSONException ignored) {
+        }
+        assertArrayEquals(new Bean[0], Jsonx.toBeanArray(new JSONArray(), toBean));
+        assertArrayEquals(new Bean[]{new Bean(20, "David"), new Bean(21, "Kevin"), new Bean(22, "Ruth")}, Jsonx.toBeanArray(beanJsonArray, toBean));
+
+        assertNull(Jsonx.toBeanArrayOrNull(null, toBeanOrNull));
+        assertNull(Jsonx.toBeanArrayOrNull(new JSONArray(), toBeanOrNull));
+        assertNull(Jsonx.toBeanArrayOrNull(errorJsonArray, toBeanOrNull));
+        assertNull(Jsonx.toBeanArrayOrNull(beanJsonArray, toBeanOrNullAllNull));
+        assertArrayEquals(new Bean[]{new Bean(20, "David"), new Bean(22, "Ruth")}, Jsonx.toBeanArrayOrNull(beanJsonArray, toBeanOrNull));
+    }
+
+    @Test
     public void testToStringArray() throws JSONException {
         JSONArray stringJsonArray = new JSONArray("[\"0\",\"1\",\"2\",\"3\",\"4\",\"5\"]");
         JSONArray haveNullJsonArray = new JSONArray();
@@ -712,6 +759,25 @@ public class JsonxTest {
         assertNull(Jsonx.toStringArrayOrNull(new JSONArray()));
         assertNull(Jsonx.toStringArrayOrNull(haveNullJsonArray));
         assertArrayEquals(new String[]{"0", "1", "2", "3", "4", "5"}, Jsonx.toStringArrayOrNull(stringJsonArray));
+    }
+
+    @Test
+    public void testToStringList() throws JSONException {
+        JSONArray stringJsonArray = new JSONArray("[\"0\",\"1\",\"2\",\"3\",\"4\",\"5\"]");
+        JSONArray haveNullJsonArray = new JSONArray();
+        haveNullJsonArray.put((Object) null);
+        try {
+            Jsonx.toStringList(haveNullJsonArray);
+            fail();
+        } catch (JSONException ignored) {
+        }
+        assertEquals(new ArrayList<>(), Jsonx.toStringList(new JSONArray()));
+        assertEquals(arrayListOf("0", "1", "2", "3", "4", "5"), Jsonx.toStringList(stringJsonArray));
+
+        assertNull(Jsonx.toStringListOrNull(null));
+        assertNull(Jsonx.toStringListOrNull(new JSONArray()));
+        assertNull(Jsonx.toStringListOrNull(haveNullJsonArray));
+        assertEquals(arrayListOf("0", "1", "2", "3", "4", "5"), Jsonx.toStringListOrNull(stringJsonArray));
     }
 
     @Test
@@ -1075,8 +1141,8 @@ public class JsonxTest {
     public void testFormat() throws JSONException {
         String sourceArray = "[{\"age\":20,\"name\":\"David\"},{\"age\":21,\"name\":\"Kevin\"},{\"age\":22,\"name\":\"Ruth\"}]";
         String sourceObject = "{\"age\":20,\"name\":\"David\"}";
-        String sourceArrayFormatResult = new String(Base64.getMimeDecoder().decode("WwogICAgewogICAgICAgICJuYW1lIjoiRGF2aWQiLAogICAgICAgICJhZ2UiOjIwCiAgICB9LAog\nICAgewogICAgICAgICJuYW1lIjoiS2V2aW4iLAogICAgICAgICJhZ2UiOjIxCiAgICB9LAogICAg\newogICAgICAgICJuYW1lIjoiUnV0aCIsCiAgICAgICAgImFnZSI6MjIKICAgIH0KXQ==\n"));
-        String sourceObjectFromResult = new String(Base64.getMimeDecoder().decode("ewogICAgIm5hbWUiOiJEYXZpZCIsCiAgICAiYWdlIjoyMAp9\n"));
+        String sourceArrayFormatResult = Base64x.decodeToString("WwogICAgewogICAgICAgICJuYW1lIjoiRGF2aWQiLAogICAgICAgICJhZ2UiOjIwCiAgICB9LAog\nICAgewogICAgICAgICJuYW1lIjoiS2V2aW4iLAogICAgICAgICJhZ2UiOjIxCiAgICB9LAogICAg\newogICAgICAgICJuYW1lIjoiUnV0aCIsCiAgICAgICAgImFnZSI6MjIKICAgIH0KXQ==\n");
+        String sourceObjectFromResult = Base64x.decodeToString("ewogICAgIm5hbWUiOiJEYXZpZCIsCiAgICAiYWdlIjoyMAp9\n");
 
         assertEquals("{}", Jsonx.formatJSON("{}"));
         assertEquals("{ }", Jsonx.formatJSON("{ }"));

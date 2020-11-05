@@ -536,6 +536,37 @@ public class Jsonx {
         return resultList.size() > 0 ? resultList : null;
     }
 
+    /**
+     * Convert JSONArray to the Bean array
+     */
+    @NotNull
+    public static <Bean> Bean[] toBeanArray(@NotNull JSONArray jsonArray, @NotNull ToBean<Bean> toBean) throws JSONException {
+        LinkedList<Bean> resultList = new LinkedList<>();
+        for (int i = 0, size = jsonArray.length(); i < size; i++) {
+            resultList.add(toBean.toBean(jsonArray.getJSONObject(i)));
+        }
+        //noinspection unchecked
+        return (Bean[]) resultList.toArray();
+    }
+
+    /**
+     * Convert JSONArray to the Bean array. If jsonArray is null or empty, or toBeanOrNull all return null, then finally return null
+     */
+    @Nullable
+    public static <Bean> Bean[] toBeanArrayOrNull(@Nullable JSONArray jsonArray, @NotNull ToBeanOrNull<Bean> toBeanOrNull) throws JSONException {
+        if (jsonArray == null || jsonArray.length() == 0) return null;
+        LinkedList<Bean> resultList = new LinkedList<>();
+        for (int i = 0, size = jsonArray.length(); i < size; i++) {
+            JSONObject jsonObject = jsonArray.optJSONObject(i);
+            Bean bean = jsonObject != null ? toBeanOrNull.toBean(jsonObject) : null;
+            if (bean != null) {
+                resultList.add(bean);
+            }
+        }
+        //noinspection unchecked
+        return resultList.size() > 0 ? (Bean[]) resultList.toArray() : null;
+    }
+
 
     /**
      * Convert a JSONArray to a String array
@@ -563,6 +594,35 @@ public class Jsonx {
             }
         }
         return dataList.size() > 0 ? dataList.toArray(new String[0]) : null;
+    }
+
+
+    /**
+     * Convert a JSONArray to a String list
+     */
+    @NotNull
+    public static ArrayList<String> toStringList(@NotNull JSONArray jsonArray) throws JSONException {
+        ArrayList<String> dataList = new ArrayList<>();
+        for (int i = 0, size = jsonArray.length(); i < size; i++) {
+            dataList.add(jsonArray.get(i).toString());
+        }
+        return dataList;
+    }
+
+    /**
+     * Convert a JSONArray to a String list. If jsonArray is null or empty, or all item are not string, then finally return null
+     */
+    @Nullable
+    public static ArrayList<String> toStringListOrNull(@Nullable JSONArray jsonArray) {
+        if (jsonArray == null || jsonArray.length() == 0) return null;
+        ArrayList<String> dataList = new ArrayList<>();
+        for (int i = 0, size = jsonArray.length(); i < size; i++) {
+            Object item = jsonArray.opt(i);
+            if (item != null) {
+                dataList.add(item.toString());
+            }
+        }
+        return dataList.size() > 0 ? dataList : null;
     }
 
 

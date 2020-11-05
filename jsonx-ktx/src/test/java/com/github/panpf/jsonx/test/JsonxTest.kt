@@ -613,6 +613,36 @@ class JsonxTest {
 
     @Test
     @Throws(JSONException::class)
+    fun testToBeanArray() {
+        val beanJsonArray = "[{\"age\":20,\"name\":\"David\"},{\"age\":21,\"name\":\"Kevin\"},{\"age\":22,\"name\":\"Ruth\"}]".toJSONArray()
+        val errorJsonArray = JSONArray("[0,1]")
+        val toBean: ToBean<Bean> = ToBean { jsonObject: JSONObject -> Bean(jsonObject.getInt("age"), jsonObject.getString("name")) }
+        val toBeanOrNull: ToBeanOrNull<Bean> = ToBeanOrNull { jsonObject: JSONObject? ->
+            val age = jsonObject?.getInt("age") ?: -1
+            if (jsonObject != null && age != 21) {
+                Bean(age, jsonObject.getString("name"))
+            } else {
+                null
+            }
+        }
+        val toBeanOrNullAllNull: ToBeanOrNull<Bean> = ToBeanOrNull { null }
+        try {
+            errorJsonArray.toBeanArray(toBean)
+            fail()
+        } catch (ignored: JSONException) {
+        }
+        assertArrayEquals(arrayOf<Bean>(), JSONArray().toBeanArray(toBean))
+        assertArrayEquals(arrayOf(Bean(20, "David"), Bean(21, "Kevin"), Bean(22, "Ruth")), beanJsonArray.toBeanArray(toBean))
+
+        assertNull(null.toBeanArrayOrNull(toBeanOrNull))
+        assertNull(JSONArray().toBeanArrayOrNull(toBeanOrNull))
+        assertNull(errorJsonArray.toBeanArrayOrNull(toBeanOrNull))
+        assertNull(beanJsonArray.toBeanArrayOrNull(toBeanOrNullAllNull))
+        assertArrayEquals(arrayOf(Bean(20, "David"), Bean(22, "Ruth")), beanJsonArray.toBeanArrayOrNull(toBeanOrNull))
+    }
+
+    @Test
+    @Throws(JSONException::class)
     fun testToStringArray() {
         val stringJsonArray = JSONArray("[\"0\",\"1\",\"2\",\"3\",\"4\",\"5\"]")
         val haveNullJsonArray = JSONArray()
@@ -629,6 +659,26 @@ class JsonxTest {
         assertNull(JSONArray().toStringArrayOrNull())
         assertNull(haveNullJsonArray.toStringArrayOrNull())
         assertArrayEquals(arrayOf("0", "1", "2", "3", "4", "5"), stringJsonArray.toStringArrayOrNull())
+    }
+
+    @Test
+    @Throws(JSONException::class)
+    fun testToStringList() {
+        val stringJsonArray = JSONArray("[\"0\",\"1\",\"2\",\"3\",\"4\",\"5\"]")
+        val haveNullJsonArray = JSONArray()
+        haveNullJsonArray.put(null as Any?)
+        try {
+            haveNullJsonArray.toStringList()
+            fail()
+        } catch (ignored: JSONException) {
+        }
+        assertEquals(arrayListOf<String>(), JSONArray().toStringList())
+        assertEquals(arrayListOf("0", "1", "2", "3", "4", "5"), stringJsonArray.toStringList())
+
+        assertNull(null.toStringListOrNull())
+        assertNull(JSONArray().toStringListOrNull())
+        assertNull(haveNullJsonArray.toStringListOrNull())
+        assertEquals(arrayListOf("0", "1", "2", "3", "4", "5"), stringJsonArray.toStringListOrNull())
     }
 
     @Test

@@ -244,6 +244,18 @@ inline fun <Bean> JSONArray.toBeanList(toBean: ToBean<Bean>): ArrayList<Bean> = 
 @Throws(JSONException::class)
 inline fun <Bean> JSONArray?.toBeanListOrNull(toBeanOrNull: ToBeanOrNull<Bean>): ArrayList<Bean>? = Jsonx.toBeanListOrNull(this, toBeanOrNull)
 
+/**
+ * Convert JSONArray to the Bean array
+ */
+@Throws(JSONException::class)
+inline fun <Bean> JSONArray.toBeanArray(toBean: ToBean<Bean>): Array<Bean> = Jsonx.toBeanArray(this, toBean)
+
+/**
+ * Convert JSONArray to the Bean array. If jsonArray is null or empty, or toBeanOrNull all return null, then finally return null
+ */
+@Throws(JSONException::class)
+inline fun <Bean> JSONArray?.toBeanArrayOrNull(toBeanOrNull: ToBeanOrNull<Bean>): Array<Bean>? = Jsonx.toBeanArrayOrNull(this, toBeanOrNull)
+
 
 /**
  * Convert a JSONArray to a String array
@@ -255,6 +267,17 @@ inline fun JSONArray.toStringArray(): Array<String> = Jsonx.toStringArray(this)
  * Convert a JSONArray to a String array. If jsonArray is null or empty, or all item are not string, then finally return null
  */
 inline fun JSONArray?.toStringArrayOrNull(): Array<String>? = Jsonx.toStringArrayOrNull(this)
+
+/**
+ * Convert a JSONArray to a String list
+ */
+@Throws(JSONException::class)
+inline fun JSONArray.toStringList(): ArrayList<String> = Jsonx.toStringList(this)
+
+/**
+ * Convert a JSONArray to a String list. If jsonArray is null or empty, or all item are not string, then finally return null
+ */
+inline fun JSONArray?.toStringListOrNull(): ArrayList<String>? = Jsonx.toStringListOrNull(this)
 
 /**
  * Convert a JSONArray to a int array
