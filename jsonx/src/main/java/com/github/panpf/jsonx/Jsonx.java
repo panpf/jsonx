@@ -247,7 +247,7 @@ public class Jsonx {
      */
     @Nullable
     public static <T> JSONObject toJSONObjectOrNull(@Nullable T item, @NotNull ToJSONObjectOrNull<T> toJSONObjectOrNull) throws JSONException {
-        return toJSONObjectOrNull.toJSONObjectOrNull(item);
+        return item != null ? toJSONObjectOrNull.toJSONObjectOrNull(item) : null;
     }
 
 
@@ -296,7 +296,7 @@ public class Jsonx {
         if (list == null || list.isEmpty()) return null;
         JSONArray jsonArray = new JSONArray();
         for (T item : list) {
-            JSONObject jsonObject = toJSONObjectOrNull.toJSONObjectOrNull(item);
+            JSONObject jsonObject = item != null ? toJSONObjectOrNull.toJSONObjectOrNull(item) : null;
             if (jsonObject != null) {
                 jsonArray.put(jsonObject);
             }
@@ -351,7 +351,7 @@ public class Jsonx {
         if (array == null || array.length == 0) return null;
         JSONArray jsonArray = new JSONArray();
         for (T item : array) {
-            JSONObject jsonObject = toJsonObjectOrNull.toJSONObjectOrNull(item);
+            JSONObject jsonObject = item != null ? toJsonObjectOrNull.toJSONObjectOrNull(item) : null;
             if (jsonObject != null) {
                 jsonArray.put(jsonObject);
             }
@@ -527,7 +527,8 @@ public class Jsonx {
         if (jsonArray == null || jsonArray.length() == 0) return null;
         ArrayList<Bean> resultList = new ArrayList<>(jsonArray.length());
         for (int i = 0, size = jsonArray.length(); i < size; i++) {
-            Bean bean = toBeanOrNull.toBean(jsonArray.optJSONObject(i));
+            JSONObject jsonObject = jsonArray.optJSONObject(i);
+            Bean bean = jsonObject != null ? toBeanOrNull.toBean(jsonObject) : null;
             if (bean != null) {
                 resultList.add(bean);
             }

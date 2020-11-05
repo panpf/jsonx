@@ -16,11 +16,12 @@
 
 package com.github.panpf.jsonx;
 
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public interface ToJSONObjectOrNull<T> {
     @Nullable
-    JSONObject toJSONObjectOrNull(@Nullable T item) throws JSONException;
+    JSONObject toJSONObjectOrNull(@NotNull T item) throws JSONException;
 }
