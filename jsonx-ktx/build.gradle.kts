@@ -1,6 +1,3 @@
-import java.util.*
-import com.novoda.gradle.release.PublishExtension
-
 plugins {
     id("java-library")
     id("jacoco")
@@ -38,17 +35,21 @@ tasks.getByName("check").dependsOn(tasks.getByName("jacocoTestReport"))
 /*
  * publish
  */
-project.file("local.properties").takeIf { it.exists() }?.let { file -> file.inputStream().use { input -> Properties().apply { load(input) } } }?.takeIf { !it.isEmpty }?.let { moduleLocalProperties ->
-    apply(plugin = "com.novoda.bintray-release")
-
-    configure<PublishExtension> {
+`java.util`.Properties().apply {
+    rootProject.file("local.properties").takeIf { it.exists() }?.inputStream()?.use { load(it) }
+    project.file("local.properties").takeIf { it.exists() }?.inputStream()?.use { load(it) }
+}.takeIf {
+    it.getProperty("bintray.user") != null && it.getProperty("bintray.userOrg") != null && it.getProperty("bintray.apiKey") != null
+}?.let { localProperties ->
+    apply(plugin = "com.github.panpf.bintray-publish")
+    configure<com.github.panpf.bintray.publish.PublishExtension> {
         groupId = "com.github.panpf"
         artifactId = "jsonx-ktx"
         publishVersion = property("VERSION").toString()
         desc = "Java, JSON, Kotlin, Extensions"
         website = "https://github.com/panpf/jsonx"
-        userOrg = moduleLocalProperties.getProperty("bintray.userOrg")
-        bintrayUser = moduleLocalProperties.getProperty("bintray.user")
-        bintrayKey = moduleLocalProperties.getProperty("bintray.apikey")
+        userOrg = localProperties.getProperty("bintray.userOrg")
+        bintrayUser = localProperties.getProperty("bintray.user")
+        bintrayKey = localProperties.getProperty("bintray.apikey")
     }
 }

@@ -11,37 +11,21 @@ Extensions to the org.json standard library
 
 ## Getting Started
 
+This library has been published to `jcenter` and private repositories `https://dl.bintray.com/panpf/maven/`, you can freely choose where to download it
+
 Add the following to your `build.gradle` file
 
 ```grovvy
 implementation "com.github.panpf:jsonx:$lastVersion"
+implementation "com.github.panpf:jsonx-ktx:$lastVersion" // Not required. Kotlin extension
+implementation "org.json:org.json:2.0"  // Not required. You need it if you are running on the java platform
 ```
 
 Please replace `$lastVersion` with the latest version: [![Download][version_java_icon]][version_java_link]
 
 Dependencies：
 * org.jetbrains:annotations: 13.0
-
-You need to add additional `org.json` dependencies as follows：
-```grovvy
-implementation "org.json:org.json:2.0"
-```
-This is because other platforms besides java, such as android, hive, etc., have built-in `org.json` so in order to avoid unnecessary trouble, the default does not depend on `org.json`
-
-### Kotlin Expansion：
-
-Add the following to your `build.gradle` file
-
-```grovvy
-implementation "com.github.panpf:jsonx-ktx:$lastVersion"
-```
-
-Dependencies：
-* org.jetbrains.kotlin:kotlin-stdlib-jdk7: 1.3.72
-
-Please replace `$lastVersion` with the latest version: [![Download][version_kotlin_icon]][version_kotlin_link]
-
-`jsonx-ktx is a jsonx extension on the Kotlin platform that allows you to use jsonx more comfortably on Kotlin`
+* org.jetbrains.kotlin:kotlin-stdlib-jdk7: 1.4.10（Only the '\*-ktx' library dependencies it）
 
 ## Samples
 
