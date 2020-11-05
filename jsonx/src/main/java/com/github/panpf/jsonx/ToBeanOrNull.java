@@ -23,5 +23,5 @@ import org.json.JSONObject;
 
 public interface ToBeanOrNull<T> {
     @Nullable
-    T toBean(@NotNull JSONObject jsonObject) throws JSONException;
+    T toBeanOrNull(@NotNull JSONObject jsonObject) throws JSONException;
 }

@@ -503,7 +503,7 @@ public class Jsonx {
      */
     @Nullable
     public static <Bean> Bean toBeanOrNull(@Nullable JSONObject jsonObject, @NotNull ToBeanOrNull<Bean> toBeanOrNull) throws JSONException {
-        return jsonObject != null ? toBeanOrNull.toBean(jsonObject) : null;
+        return jsonObject != null ? toBeanOrNull.toBeanOrNull(jsonObject) : null;
     }
 
 
@@ -528,7 +528,7 @@ public class Jsonx {
         ArrayList<Bean> resultList = new ArrayList<>(jsonArray.length());
         for (int i = 0, size = jsonArray.length(); i < size; i++) {
             JSONObject jsonObject = jsonArray.optJSONObject(i);
-            Bean bean = jsonObject != null ? toBeanOrNull.toBean(jsonObject) : null;
+            Bean bean = jsonObject != null ? toBeanOrNull.toBeanOrNull(jsonObject) : null;
             if (bean != null) {
                 resultList.add(bean);
             }
@@ -558,7 +558,7 @@ public class Jsonx {
         LinkedList<Bean> resultList = new LinkedList<>();
         for (int i = 0, size = jsonArray.length(); i < size; i++) {
             JSONObject jsonObject = jsonArray.optJSONObject(i);
-            Bean bean = jsonObject != null ? toBeanOrNull.toBean(jsonObject) : null;
+            Bean bean = jsonObject != null ? toBeanOrNull.toBeanOrNull(jsonObject) : null;
             if (bean != null) {
                 resultList.add(bean);
             }

@@ -628,7 +628,7 @@ public class JsonxTest {
         ToBeanOrNull<Bean> toBeanOrNull = new ToBeanOrNull<Bean>() {
             @Nullable
             @Override
-            public Bean toBean(@Nullable JSONObject jsonObject) throws JSONException {
+            public Bean toBeanOrNull(@Nullable JSONObject jsonObject) throws JSONException {
                 int age = jsonObject != null ? jsonObject.getInt("age") : -1;
                 if (jsonObject != null && age != 21) {
                     return new Bean(age, jsonObject.getString("name"));
@@ -664,7 +664,7 @@ public class JsonxTest {
         ToBeanOrNull<Bean> toBeanOrNull = new ToBeanOrNull<Bean>() {
             @Nullable
             @Override
-            public Bean toBean(@Nullable JSONObject jsonObject) throws JSONException {
+            public Bean toBeanOrNull(@Nullable JSONObject jsonObject) throws JSONException {
                 int age = jsonObject != null ? jsonObject.getInt("age") : -1;
                 if (jsonObject != null && age != 21) {
                     return new Bean(age, jsonObject.getString("name"));
@@ -676,7 +676,7 @@ public class JsonxTest {
         ToBeanOrNull<Bean> toBeanOrNullAllNull = new ToBeanOrNull<Bean>() {
             @Nullable
             @Override
-            public Bean toBean(@Nullable JSONObject jsonObject) {
+            public Bean toBeanOrNull(@Nullable JSONObject jsonObject) {
                 return null;
             }
         };
@@ -710,7 +710,7 @@ public class JsonxTest {
         ToBeanOrNull<Bean> toBeanOrNull = new ToBeanOrNull<Bean>() {
             @Nullable
             @Override
-            public Bean toBean(@Nullable JSONObject jsonObject) throws JSONException {
+            public Bean toBeanOrNull(@Nullable JSONObject jsonObject) throws JSONException {
                 int age = jsonObject != null ? jsonObject.getInt("age") : -1;
                 if (jsonObject != null && age != 21) {
                     return new Bean(age, jsonObject.getString("name"));
@@ -722,7 +722,7 @@ public class JsonxTest {
         ToBeanOrNull<Bean> toBeanOrNullAllNull = new ToBeanOrNull<Bean>() {
             @Nullable
             @Override
-            public Bean toBean(@Nullable JSONObject jsonObject) {
+            public Bean toBeanOrNull(@Nullable JSONObject jsonObject) {
                 return null;
             }
         };
