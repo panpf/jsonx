@@ -1,4 +1,7 @@
-## 1.0.3
+## new
+* new: toBean, toString ... now supports direct incoming String
+
+## v1.0.3
 * change: ToBeanOrNull.toBean() rename to toBeanOrNull()
 
 ## v1.0.2

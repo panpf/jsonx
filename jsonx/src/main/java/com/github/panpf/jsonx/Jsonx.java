@@ -491,7 +491,7 @@ public class Jsonx {
 
 
     /**
-     * Convert JSONArray to the Bean
+     * Convert JSONObject to the Bean
      */
     @NotNull
     public static <Bean> Bean toBean(@NotNull JSONObject jsonObject, @NotNull ToBean<Bean> toBean) throws JSONException {
@@ -499,10 +499,27 @@ public class Jsonx {
     }
 
     /**
-     * Convert JSONArray to the Bean. If jsonObject is null or toBeanOrNull return null, then finally return null
+     * Convert json string to the Bean
+     */
+    @NotNull
+    public static <Bean> Bean toBean(@NotNull String json, @NotNull ToBean<Bean> toBean) throws JSONException {
+        return toBean.toBean(toJSONObject(json));
+    }
+
+    /**
+     * Convert JSONObject to the Bean. If jsonObject is null or toBeanOrNull return null, then finally return null
      */
     @Nullable
     public static <Bean> Bean toBeanOrNull(@Nullable JSONObject jsonObject, @NotNull ToBeanOrNull<Bean> toBeanOrNull) throws JSONException {
+        return jsonObject != null ? toBeanOrNull.toBeanOrNull(jsonObject) : null;
+    }
+
+    /**
+     * Convert json string to the Bean. If jsonObject is null or toBeanOrNull return null, then finally return null
+     */
+    @Nullable
+    public static <Bean> Bean toBeanOrNull(@Nullable String json, @NotNull ToBeanOrNull<Bean> toBeanOrNull) throws JSONException {
+        JSONObject jsonObject = toJSONObjectOrNull(json);
         return jsonObject != null ? toBeanOrNull.toBeanOrNull(jsonObject) : null;
     }
 
@@ -520,10 +537,41 @@ public class Jsonx {
     }
 
     /**
+     * Convert json array string to the Bean list
+     */
+    @NotNull
+    public static <Bean> ArrayList<Bean> toBeanList(@NotNull String json, @NotNull ToBean<Bean> toBean) throws JSONException {
+        JSONArray jsonArray = toJSONArray(json);
+        ArrayList<Bean> resultList = new ArrayList<>(jsonArray.length());
+        for (int i = 0, size = jsonArray.length(); i < size; i++) {
+            resultList.add(toBean.toBean(jsonArray.getJSONObject(i)));
+        }
+        return resultList;
+    }
+
+    /**
      * Convert JSONArray to the Bean list. If jsonArray is null or empty, or toBeanOrNull all return null, then finally return null
      */
     @Nullable
     public static <Bean> ArrayList<Bean> toBeanListOrNull(@Nullable JSONArray jsonArray, @NotNull ToBeanOrNull<Bean> toBeanOrNull) throws JSONException {
+        if (jsonArray == null || jsonArray.length() == 0) return null;
+        ArrayList<Bean> resultList = new ArrayList<>(jsonArray.length());
+        for (int i = 0, size = jsonArray.length(); i < size; i++) {
+            JSONObject jsonObject = jsonArray.optJSONObject(i);
+            Bean bean = jsonObject != null ? toBeanOrNull.toBeanOrNull(jsonObject) : null;
+            if (bean != null) {
+                resultList.add(bean);
+            }
+        }
+        return resultList.size() > 0 ? resultList : null;
+    }
+
+    /**
+     * Convert json array string to the Bean list. If jsonArray is null or empty, or toBeanOrNull all return null, then finally return null
+     */
+    @Nullable
+    public static <Bean> ArrayList<Bean> toBeanListOrNull(@Nullable String json, @NotNull ToBeanOrNull<Bean> toBeanOrNull) throws JSONException {
+        JSONArray jsonArray = toJSONArrayOrNull(json);
         if (jsonArray == null || jsonArray.length() == 0) return null;
         ArrayList<Bean> resultList = new ArrayList<>(jsonArray.length());
         for (int i = 0, size = jsonArray.length(); i < size; i++) {
@@ -550,10 +598,43 @@ public class Jsonx {
     }
 
     /**
+     * Convert json array string to the Bean array
+     */
+    @NotNull
+    public static <Bean> Bean[] toBeanArray(@NotNull String json, @NotNull ToBean<Bean> toBean) throws JSONException {
+        JSONArray jsonArray = toJSONArray(json);
+        LinkedList<Bean> resultList = new LinkedList<>();
+        for (int i = 0, size = jsonArray.length(); i < size; i++) {
+            resultList.add(toBean.toBean(jsonArray.getJSONObject(i)));
+        }
+        //noinspection unchecked
+        return (Bean[]) resultList.toArray();
+    }
+
+    /**
      * Convert JSONArray to the Bean array. If jsonArray is null or empty, or toBeanOrNull all return null, then finally return null
      */
     @Nullable
     public static <Bean> Bean[] toBeanArrayOrNull(@Nullable JSONArray jsonArray, @NotNull ToBeanOrNull<Bean> toBeanOrNull) throws JSONException {
+        if (jsonArray == null || jsonArray.length() == 0) return null;
+        LinkedList<Bean> resultList = new LinkedList<>();
+        for (int i = 0, size = jsonArray.length(); i < size; i++) {
+            JSONObject jsonObject = jsonArray.optJSONObject(i);
+            Bean bean = jsonObject != null ? toBeanOrNull.toBeanOrNull(jsonObject) : null;
+            if (bean != null) {
+                resultList.add(bean);
+            }
+        }
+        //noinspection unchecked
+        return resultList.size() > 0 ? (Bean[]) resultList.toArray() : null;
+    }
+
+    /**
+     * Convert json array string to the Bean array. If jsonArray is null or empty, or toBeanOrNull all return null, then finally return null
+     */
+    @Nullable
+    public static <Bean> Bean[] toBeanArrayOrNull(@Nullable String json, @NotNull ToBeanOrNull<Bean> toBeanOrNull) throws JSONException {
+        JSONArray jsonArray = toJSONArrayOrNull(json);
         if (jsonArray == null || jsonArray.length() == 0) return null;
         LinkedList<Bean> resultList = new LinkedList<>();
         for (int i = 0, size = jsonArray.length(); i < size; i++) {
@@ -581,10 +662,40 @@ public class Jsonx {
     }
 
     /**
+     * Convert a json array string to a String array
+     */
+    @NotNull
+    public static String[] toStringArray(@NotNull String json) throws JSONException {
+        JSONArray jsonArray = toJSONArray(json);
+        String[] dataArray = new String[jsonArray.length()];
+        for (int i = 0, size = jsonArray.length(); i < size; i++) {
+            dataArray[i] = jsonArray.get(i).toString();
+        }
+        return dataArray;
+    }
+
+    /**
      * Convert a JSONArray to a String array. If jsonArray is null or empty, or all item are not string, then finally return null
      */
     @Nullable
     public static String[] toStringArrayOrNull(@Nullable JSONArray jsonArray) {
+        if (jsonArray == null || jsonArray.length() == 0) return null;
+        LinkedList<String> dataList = new LinkedList<>();
+        for (int i = 0, size = jsonArray.length(); i < size; i++) {
+            Object item = jsonArray.opt(i);
+            if (item != null) {
+                dataList.add(item.toString());
+            }
+        }
+        return dataList.size() > 0 ? dataList.toArray(new String[0]) : null;
+    }
+
+    /**
+     * Convert a json array string to a String array. If jsonArray is null or empty, or all item are not string, then finally return null
+     */
+    @Nullable
+    public static String[] toStringArrayOrNull(@Nullable String json) {
+        JSONArray jsonArray = toJSONArrayOrNull(json);
         if (jsonArray == null || jsonArray.length() == 0) return null;
         LinkedList<String> dataList = new LinkedList<>();
         for (int i = 0, size = jsonArray.length(); i < size; i++) {
@@ -610,10 +721,40 @@ public class Jsonx {
     }
 
     /**
+     * Convert a json array string to a String list
+     */
+    @NotNull
+    public static ArrayList<String> toStringList(@NotNull String json) throws JSONException {
+        JSONArray jsonArray = toJSONArray(json);
+        ArrayList<String> dataList = new ArrayList<>();
+        for (int i = 0, size = jsonArray.length(); i < size; i++) {
+            dataList.add(jsonArray.get(i).toString());
+        }
+        return dataList;
+    }
+
+    /**
      * Convert a JSONArray to a String list. If jsonArray is null or empty, or all item are not string, then finally return null
      */
     @Nullable
     public static ArrayList<String> toStringListOrNull(@Nullable JSONArray jsonArray) {
+        if (jsonArray == null || jsonArray.length() == 0) return null;
+        ArrayList<String> dataList = new ArrayList<>();
+        for (int i = 0, size = jsonArray.length(); i < size; i++) {
+            Object item = jsonArray.opt(i);
+            if (item != null) {
+                dataList.add(item.toString());
+            }
+        }
+        return dataList.size() > 0 ? dataList : null;
+    }
+
+    /**
+     * Convert a json array string to a String list. If jsonArray is null or empty, or all item are not string, then finally return null
+     */
+    @Nullable
+    public static ArrayList<String> toStringListOrNull(@Nullable String json) {
+        JSONArray jsonArray = toJSONArrayOrNull(json);
         if (jsonArray == null || jsonArray.length() == 0) return null;
         ArrayList<String> dataList = new ArrayList<>();
         for (int i = 0, size = jsonArray.length(); i < size; i++) {
@@ -639,10 +780,48 @@ public class Jsonx {
     }
 
     /**
+     * Convert a json array string to a int array
+     */
+    @NotNull
+    public static int[] toIntArray(@NotNull String json) throws JSONException {
+        JSONArray jsonArray = toJSONArray(json);
+        int[] dataArray = new int[jsonArray.length()];
+        for (int i = 0, size = jsonArray.length(); i < size; i++) {
+            dataArray[i] = jsonArray.getInt(i);
+        }
+        return dataArray;
+    }
+
+    /**
      * Convert a JSONArray to a int array. If jsonArray is null or empty, or all item are not int, then finally return null
      */
     @Nullable
     public static int[] toIntArrayOrNull(@Nullable JSONArray jsonArray) {
+        if (jsonArray == null || jsonArray.length() == 0) return null;
+        LinkedList<Integer> dataList = new LinkedList<>();
+        for (int i = 0, size = jsonArray.length(); i < size; i++) {
+            int item = jsonArray.optInt(i, -9999);
+            if (item != -9999 || jsonArray.optInt(i, -9998) != -9998) {
+                dataList.add(item);
+            }
+        }
+        if (dataList.size() > 0) {
+            int[] dataArray = new int[dataList.size()];
+            for (int i = 0, size = dataList.size(); i < size; i++) {
+                dataArray[i] = dataList.get(i);
+            }
+            return dataArray;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Convert a json array string to a int array. If jsonArray is null or empty, or all item are not int, then finally return null
+     */
+    @Nullable
+    public static int[] toIntArrayOrNull(@Nullable String json) {
+        JSONArray jsonArray = toJSONArrayOrNull(json);
         if (jsonArray == null || jsonArray.length() == 0) return null;
         LinkedList<Integer> dataList = new LinkedList<>();
         for (int i = 0, size = jsonArray.length(); i < size; i++) {
@@ -676,10 +855,48 @@ public class Jsonx {
     }
 
     /**
+     * Convert a json array string to a double array
+     */
+    @NotNull
+    public static double[] toDoubleArray(@NotNull String json) throws JSONException {
+        JSONArray jsonArray = toJSONArray(json);
+        double[] dataArray = new double[jsonArray.length()];
+        for (int i = 0, size = jsonArray.length(); i < size; i++) {
+            dataArray[i] = jsonArray.getDouble(i);
+        }
+        return dataArray;
+    }
+
+    /**
      * Convert a JSONArray to a double array. If jsonArray is null or empty, or all item are not double, then finally return null
      */
     @Nullable
     public static double[] toDoubleArrayOrNull(@Nullable JSONArray jsonArray) {
+        if (jsonArray == null || jsonArray.length() == 0) return null;
+        LinkedList<Double> dataList = new LinkedList<>();
+        for (int i = 0, size = jsonArray.length(); i < size; i++) {
+            double item = jsonArray.optDouble(i, -9999.0);
+            if (item != -9999.0 || jsonArray.optDouble(i, -9998.0) != -9998.0) {
+                dataList.add(item);
+            }
+        }
+        if (dataList.size() > 0) {
+            double[] dataArray = new double[dataList.size()];
+            for (int i = 0, size = dataList.size(); i < size; i++) {
+                dataArray[i] = dataList.get(i);
+            }
+            return dataArray;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Convert a json array string to a double array. If jsonArray is null or empty, or all item are not double, then finally return null
+     */
+    @Nullable
+    public static double[] toDoubleArrayOrNull(@Nullable String json) {
+        JSONArray jsonArray = toJSONArrayOrNull(json);
         if (jsonArray == null || jsonArray.length() == 0) return null;
         LinkedList<Double> dataList = new LinkedList<>();
         for (int i = 0, size = jsonArray.length(); i < size; i++) {
@@ -713,10 +930,48 @@ public class Jsonx {
     }
 
     /**
+     * Convert a json array string to a long array
+     */
+    @NotNull
+    public static long[] toLongArray(@NotNull String json) throws JSONException {
+        JSONArray jsonArray = toJSONArray(json);
+        long[] dataArray = new long[jsonArray.length()];
+        for (int i = 0, size = jsonArray.length(); i < size; i++) {
+            dataArray[i] = jsonArray.getLong(i);
+        }
+        return dataArray;
+    }
+
+    /**
      * Convert a JSONArray to a long array. If jsonArray is null or empty, or all item are not long, then finally return null
      */
     @Nullable
     public static long[] toLongArrayOrNull(@Nullable JSONArray jsonArray) {
+        if (jsonArray == null || jsonArray.length() == 0) return null;
+        LinkedList<Long> dataList = new LinkedList<>();
+        for (int i = 0, size = jsonArray.length(); i < size; i++) {
+            long item = jsonArray.optLong(i, -9999L);
+            if (item != -9999L || jsonArray.optLong(i, -9998L) != -9998L) {
+                dataList.add(item);
+            }
+        }
+        if (dataList.size() > 0) {
+            long[] dataArray = new long[dataList.size()];
+            for (int i = 0, size = dataList.size(); i < size; i++) {
+                dataArray[i] = dataList.get(i);
+            }
+            return dataArray;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Convert a json array string to a long array. If jsonArray is null or empty, or all item are not long, then finally return null
+     */
+    @Nullable
+    public static long[] toLongArrayOrNull(@Nullable String json) {
+        JSONArray jsonArray = toJSONArrayOrNull(json);
         if (jsonArray == null || jsonArray.length() == 0) return null;
         LinkedList<Long> dataList = new LinkedList<>();
         for (int i = 0, size = jsonArray.length(); i < size; i++) {
@@ -750,10 +1005,48 @@ public class Jsonx {
     }
 
     /**
+     * Convert a json array string to a boolean array
+     */
+    @NotNull
+    public static boolean[] toBooleanArray(@NotNull String json) throws JSONException {
+        JSONArray jsonArray = toJSONArray(json);
+        boolean[] dataArray = new boolean[jsonArray.length()];
+        for (int i = 0, size = jsonArray.length(); i < size; i++) {
+            dataArray[i] = jsonArray.getBoolean(i);
+        }
+        return dataArray;
+    }
+
+    /**
      * Convert a JSONArray to a boolean array. If jsonArray is null or empty, or all item are not boolean, then finally return null
      */
     @Nullable
     public static boolean[] toBooleanArrayOrNull(@Nullable JSONArray jsonArray) {
+        if (jsonArray == null || jsonArray.length() == 0) return null;
+        LinkedList<Boolean> dataList = new LinkedList<>();
+        for (int i = 0, size = jsonArray.length(); i < size; i++) {
+            boolean item = jsonArray.optBoolean(i, false);
+            if (item || !jsonArray.optBoolean(i, true)) {
+                dataList.add(item);
+            }
+        }
+        if (dataList.size() > 0) {
+            boolean[] dataArray = new boolean[dataList.size()];
+            for (int i = 0, size = dataList.size(); i < size; i++) {
+                dataArray[i] = dataList.get(i);
+            }
+            return dataArray;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Convert a json array string to a boolean array. If jsonArray is null or empty, or all item are not boolean, then finally return null
+     */
+    @Nullable
+    public static boolean[] toBooleanArrayOrNull(@Nullable String json) {
+        JSONArray jsonArray = toJSONArrayOrNull(json);
         if (jsonArray == null || jsonArray.length() == 0) return null;
         LinkedList<Boolean> dataList = new LinkedList<>();
         for (int i = 0, size = jsonArray.length(); i < size; i++) {

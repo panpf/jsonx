@@ -615,9 +615,6 @@ public class JsonxTest {
     @Test
     public void testToBean() throws JSONException {
         Bean bean = new Bean(20, "David");
-        JSONObject beanJsonObject = Jsonx.toJSONObject("{\"age\":20,\"name\":\"David\"}");
-        JSONObject errorJsonObject = Jsonx.toJSONObject("{}");
-        JSONObject unsatisfiedBeanJsonObject = Jsonx.toJSONObject("{\"age\":21,\"name\":\"David\"}");
         ToBean<Bean> toBean = new ToBean<Bean>() {
             @NotNull
             @Override
@@ -638,22 +635,31 @@ public class JsonxTest {
             }
         };
 
+        JSONObject beanJsonObject = Jsonx.toJSONObject("{\"age\":20,\"name\":\"David\"}");
+        JSONObject errorJsonObject = Jsonx.toJSONObject("{}");
+        JSONObject unsatisfiedBeanJsonObject = Jsonx.toJSONObject("{\"age\":21,\"name\":\"David\"}");
         assertEquals(bean, Jsonx.toBean(beanJsonObject, toBean));
-
         try {
             Jsonx.toBeanOrNull(errorJsonObject, toBeanOrNull);
             fail();
         } catch (JSONException ignored) {
         }
-        assertNull(Jsonx.toBeanOrNull(null, toBeanOrNull));
+        assertNull(Jsonx.toBeanOrNull((JSONObject) null, toBeanOrNull));
         assertNull(Jsonx.toBeanOrNull(unsatisfiedBeanJsonObject, toBeanOrNull));
         assertEquals(bean, Jsonx.toBeanOrNull(beanJsonObject, toBeanOrNull));
+
+        String beanJson = "{\"age\":20,\"name\":\"David\"}";
+        String errorJson = "{}";
+        String unsatisfiedBeanJson = "{\"age\":21,\"name\":\"David\"}";
+        assertEquals(bean, Jsonx.toBean(beanJson, toBean));
+        assertNull(Jsonx.toBeanOrNull(errorJson, toBeanOrNull));
+        assertNull(Jsonx.toBeanOrNull((String) null, toBeanOrNull));
+        assertNull(Jsonx.toBeanOrNull(unsatisfiedBeanJson, toBeanOrNull));
+        assertEquals(bean, Jsonx.toBeanOrNull(beanJson, toBeanOrNull));
     }
 
     @Test
     public void testToBeanList() throws JSONException {
-        JSONArray beanJsonArray = Jsonx.toJSONArray("[{\"age\":20,\"name\":\"David\"},{\"age\":21,\"name\":\"Kevin\"},{\"age\":22,\"name\":\"Ruth\"}]");
-        JSONArray errorJsonArray = new JSONArray("[0,1]");
         ToBean<Bean> toBean = new ToBean<Bean>() {
             @NotNull
             @Override
@@ -681,6 +687,8 @@ public class JsonxTest {
             }
         };
 
+        JSONArray beanJsonArray = Jsonx.toJSONArray("[{\"age\":20,\"name\":\"David\"},{\"age\":21,\"name\":\"Kevin\"},{\"age\":22,\"name\":\"Ruth\"}]");
+        JSONArray errorJsonArray = new JSONArray("[0,1]");
         try {
             Jsonx.toBeanList(errorJsonArray, toBean);
             fail();
@@ -688,18 +696,30 @@ public class JsonxTest {
         }
         assertEquals(new ArrayList<Bean>(), Jsonx.toBeanList(new JSONArray(), toBean));
         assertEquals(arrayListOf(new Bean(20, "David"), new Bean(21, "Kevin"), new Bean(22, "Ruth")), Jsonx.toBeanList(beanJsonArray, toBean));
-
-        assertNull(Jsonx.toBeanListOrNull(null, toBeanOrNull));
+        assertNull(Jsonx.toBeanListOrNull((JSONArray) null, toBeanOrNull));
         assertNull(Jsonx.toBeanListOrNull(new JSONArray(), toBeanOrNull));
         assertNull(Jsonx.toBeanListOrNull(errorJsonArray, toBeanOrNull));
         assertNull(Jsonx.toBeanListOrNull(beanJsonArray, toBeanOrNullAllNull));
         assertEquals(arrayListOf(new Bean(20, "David"), new Bean(22, "Ruth")), Jsonx.toBeanListOrNull(beanJsonArray, toBeanOrNull));
+
+        String beanJson = "[{\"age\":20,\"name\":\"David\"},{\"age\":21,\"name\":\"Kevin\"},{\"age\":22,\"name\":\"Ruth\"}]";
+        String errorJson = "[0,1]";
+        try {
+            Jsonx.toBeanList(errorJson, toBean);
+            fail();
+        } catch (JSONException ignored) {
+        }
+        assertEquals(new ArrayList<Bean>(), Jsonx.toBeanList(new JSONArray(), toBean));
+        assertEquals(arrayListOf(new Bean(20, "David"), new Bean(21, "Kevin"), new Bean(22, "Ruth")), Jsonx.toBeanList(beanJson, toBean));
+        assertNull(Jsonx.toBeanListOrNull((String) null, toBeanOrNull));
+        assertNull(Jsonx.toBeanListOrNull("[]", toBeanOrNull));
+        assertNull(Jsonx.toBeanListOrNull(errorJson, toBeanOrNull));
+        assertNull(Jsonx.toBeanListOrNull(beanJson, toBeanOrNullAllNull));
+        assertEquals(arrayListOf(new Bean(20, "David"), new Bean(22, "Ruth")), Jsonx.toBeanListOrNull(beanJson, toBeanOrNull));
     }
 
     @Test
     public void testToBeanArray() throws JSONException {
-        JSONArray beanJsonArray = Jsonx.toJSONArray("[{\"age\":20,\"name\":\"David\"},{\"age\":21,\"name\":\"Kevin\"},{\"age\":22,\"name\":\"Ruth\"}]");
-        JSONArray errorJsonArray = new JSONArray("[0,1]");
         ToBean<Bean> toBean = new ToBean<Bean>() {
             @NotNull
             @Override
@@ -727,6 +747,8 @@ public class JsonxTest {
             }
         };
 
+        JSONArray beanJsonArray = Jsonx.toJSONArray("[{\"age\":20,\"name\":\"David\"},{\"age\":21,\"name\":\"Kevin\"},{\"age\":22,\"name\":\"Ruth\"}]");
+        JSONArray errorJsonArray = new JSONArray("[0,1]");
         try {
             Jsonx.toBeanArray(errorJsonArray, toBean);
             fail();
@@ -734,57 +756,78 @@ public class JsonxTest {
         }
         assertArrayEquals(new Bean[0], Jsonx.toBeanArray(new JSONArray(), toBean));
         assertArrayEquals(new Bean[]{new Bean(20, "David"), new Bean(21, "Kevin"), new Bean(22, "Ruth")}, Jsonx.toBeanArray(beanJsonArray, toBean));
-
-        assertNull(Jsonx.toBeanArrayOrNull(null, toBeanOrNull));
+        assertNull(Jsonx.toBeanArrayOrNull((JSONArray) null, toBeanOrNull));
         assertNull(Jsonx.toBeanArrayOrNull(new JSONArray(), toBeanOrNull));
         assertNull(Jsonx.toBeanArrayOrNull(errorJsonArray, toBeanOrNull));
         assertNull(Jsonx.toBeanArrayOrNull(beanJsonArray, toBeanOrNullAllNull));
         assertArrayEquals(new Bean[]{new Bean(20, "David"), new Bean(22, "Ruth")}, Jsonx.toBeanArrayOrNull(beanJsonArray, toBeanOrNull));
+
+        String beanJson = "[{\"age\":20,\"name\":\"David\"},{\"age\":21,\"name\":\"Kevin\"},{\"age\":22,\"name\":\"Ruth\"}]";
+        String errorJson = "[0,1]";
+        try {
+            Jsonx.toBeanArray(errorJson, toBean);
+            fail();
+        } catch (JSONException ignored) {
+        }
+        assertArrayEquals(new Bean[0], Jsonx.toBeanArray(new JSONArray(), toBean));
+        assertArrayEquals(new Bean[]{new Bean(20, "David"), new Bean(21, "Kevin"), new Bean(22, "Ruth")}, Jsonx.toBeanArray(beanJson, toBean));
+        assertNull(Jsonx.toBeanArrayOrNull((String) null, toBeanOrNull));
+        assertNull(Jsonx.toBeanArrayOrNull("[]", toBeanOrNull));
+        assertNull(Jsonx.toBeanArrayOrNull(errorJson, toBeanOrNull));
+        assertNull(Jsonx.toBeanArrayOrNull(beanJson, toBeanOrNullAllNull));
+        assertArrayEquals(new Bean[]{new Bean(20, "David"), new Bean(22, "Ruth")}, Jsonx.toBeanArrayOrNull(beanJson, toBeanOrNull));
     }
 
     @Test
     public void testToStringArray() throws JSONException {
         JSONArray stringJsonArray = new JSONArray("[\"0\",\"1\",\"2\",\"3\",\"4\",\"5\"]");
-        JSONArray haveNullJsonArray = new JSONArray();
-        haveNullJsonArray.put((Object) null);
-        try {
-            Jsonx.toStringArray(haveNullJsonArray);
-            fail();
-        } catch (JSONException ignored) {
-        }
+        JSONArray haveNullJsonArray = new JSONArray("[null]");
+        assertArrayEquals(new String[]{"null"}, Jsonx.toStringArray(haveNullJsonArray));
         assertArrayEquals(new String[0], Jsonx.toStringArray(new JSONArray()));
         assertArrayEquals(new String[]{"0", "1", "2", "3", "4", "5"}, Jsonx.toStringArray(stringJsonArray));
-
-        assertNull(Jsonx.toStringArrayOrNull(null));
+        assertNull(Jsonx.toStringArrayOrNull((JSONArray) null));
         assertNull(Jsonx.toStringArrayOrNull(new JSONArray()));
-        assertNull(Jsonx.toStringArrayOrNull(haveNullJsonArray));
+        assertArrayEquals(new String[]{"null"}, Jsonx.toStringArrayOrNull(haveNullJsonArray));
         assertArrayEquals(new String[]{"0", "1", "2", "3", "4", "5"}, Jsonx.toStringArrayOrNull(stringJsonArray));
+
+        String stringJson = "[\"0\",\"1\",\"2\",\"3\",\"4\",\"5\"]";
+        String haveNullJson = "[null]";
+        assertArrayEquals(new String[]{"null"}, Jsonx.toStringArray(haveNullJson));
+        assertArrayEquals(new String[0], Jsonx.toStringArray("[]"));
+        assertArrayEquals(new String[]{"0", "1", "2", "3", "4", "5"}, Jsonx.toStringArray(stringJson));
+        assertNull(Jsonx.toStringArrayOrNull((String) null));
+        assertNull(Jsonx.toStringArrayOrNull("[]"));
+        assertArrayEquals(new String[]{"null"}, Jsonx.toStringArrayOrNull(haveNullJson));
+        assertArrayEquals(new String[]{"0", "1", "2", "3", "4", "5"}, Jsonx.toStringArrayOrNull(stringJson));
     }
 
     @Test
     public void testToStringList() throws JSONException {
         JSONArray stringJsonArray = new JSONArray("[\"0\",\"1\",\"2\",\"3\",\"4\",\"5\"]");
-        JSONArray haveNullJsonArray = new JSONArray();
-        haveNullJsonArray.put((Object) null);
-        try {
-            Jsonx.toStringList(haveNullJsonArray);
-            fail();
-        } catch (JSONException ignored) {
-        }
+        JSONArray haveNullJsonArray = new JSONArray("[null]");
+        assertEquals(arrayListOf("null"), Jsonx.toStringList(haveNullJsonArray));
         assertEquals(new ArrayList<>(), Jsonx.toStringList(new JSONArray()));
         assertEquals(arrayListOf("0", "1", "2", "3", "4", "5"), Jsonx.toStringList(stringJsonArray));
-
-        assertNull(Jsonx.toStringListOrNull(null));
+        assertNull(Jsonx.toStringListOrNull((JSONArray) null));
         assertNull(Jsonx.toStringListOrNull(new JSONArray()));
-        assertNull(Jsonx.toStringListOrNull(haveNullJsonArray));
+        assertEquals(arrayListOf("null"), Jsonx.toStringListOrNull(haveNullJsonArray));
         assertEquals(arrayListOf("0", "1", "2", "3", "4", "5"), Jsonx.toStringListOrNull(stringJsonArray));
+
+        String stringJson = "[\"0\",\"1\",\"2\",\"3\",\"4\",\"5\"]";
+        String haveNullJson = "[null]";
+        assertEquals(arrayListOf("null"), Jsonx.toStringList(haveNullJson));
+        assertEquals(new ArrayList<>(), Jsonx.toStringList("[]"));
+        assertEquals(arrayListOf("0", "1", "2", "3", "4", "5"), Jsonx.toStringList(stringJson));
+        assertNull(Jsonx.toStringListOrNull((String) null));
+        assertNull(Jsonx.toStringListOrNull("[]"));
+        assertEquals(arrayListOf("null"), Jsonx.toStringListOrNull(haveNullJson));
+        assertEquals(arrayListOf("0", "1", "2", "3", "4", "5"), Jsonx.toStringListOrNull(stringJson));
     }
 
     @Test
     public void testToIntArray() throws JSONException {
         JSONArray intJsonArray = new JSONArray("[0,1,2,3,4,-9999]");
-        JSONArray haveNullJsonArray = new JSONArray();
-        haveNullJsonArray.put((Object) null);
+        JSONArray haveNullJsonArray = new JSONArray("[null]");
         try {
             Jsonx.toIntArray(haveNullJsonArray);
             fail();
@@ -792,18 +835,30 @@ public class JsonxTest {
         }
         assertArrayEquals(new int[0], Jsonx.toIntArray(new JSONArray()));
         assertArrayEquals(new int[]{0, 1, 2, 3, 4, -9999}, Jsonx.toIntArray(intJsonArray));
-
-        assertNull(Jsonx.toIntArrayOrNull(null));
+        assertNull(Jsonx.toIntArrayOrNull((JSONArray) null));
         assertNull(Jsonx.toIntArrayOrNull(new JSONArray()));
         assertNull(Jsonx.toIntArrayOrNull(haveNullJsonArray));
         assertArrayEquals(new int[]{0, 1, 2, 3, 4, -9999}, Jsonx.toIntArrayOrNull(intJsonArray));
+
+        String intJson = "[0,1,2,3,4,-9999]";
+        String haveNullJson = "[null]";
+        try {
+            Jsonx.toIntArray(haveNullJson);
+            fail();
+        } catch (JSONException ignored) {
+        }
+        assertArrayEquals(new int[0], Jsonx.toIntArray("[]"));
+        assertArrayEquals(new int[]{0, 1, 2, 3, 4, -9999}, Jsonx.toIntArray(intJson));
+        assertNull(Jsonx.toIntArrayOrNull((String) null));
+        assertNull(Jsonx.toIntArrayOrNull("[]"));
+        assertNull(Jsonx.toIntArrayOrNull(haveNullJson));
+        assertArrayEquals(new int[]{0, 1, 2, 3, 4, -9999}, Jsonx.toIntArrayOrNull(intJson));
     }
 
     @Test
     public void testToDoubleArray() throws JSONException {
         JSONArray doubleJsonArray = new JSONArray("[0.1,1.1,2.1,3.1,4.1,-9999.0]");
-        JSONArray haveNullJsonArray = new JSONArray();
-        haveNullJsonArray.put((Object) null);
+        JSONArray haveNullJsonArray = new JSONArray("[null]");
         try {
             Jsonx.toDoubleArray(haveNullJsonArray);
             fail();
@@ -811,18 +866,30 @@ public class JsonxTest {
         }
         assertArrayEquals(new double[0], Jsonx.toDoubleArray(new JSONArray()), 0.0);
         assertArrayEquals(new double[]{0.1, 1.1, 2.1, 3.1, 4.1, -9999.0}, Jsonx.toDoubleArray(doubleJsonArray), 0.0);
-
-        assertNull(Jsonx.toDoubleArrayOrNull(null));
+        assertNull(Jsonx.toDoubleArrayOrNull((JSONArray) null));
         assertNull(Jsonx.toDoubleArrayOrNull(new JSONArray()));
         assertNull(Jsonx.toDoubleArrayOrNull(haveNullJsonArray));
         assertArrayEquals(new double[]{0.1, 1.1, 2.1, 3.1, 4.1, -9999.0}, Jsonx.toDoubleArrayOrNull(doubleJsonArray), 0.0);
+
+        String doubleJson = "[0.1,1.1,2.1,3.1,4.1,-9999.0]";
+        String haveNullJson = "[null]";
+        try {
+            Jsonx.toDoubleArray(haveNullJson);
+            fail();
+        } catch (JSONException ignored) {
+        }
+        assertArrayEquals(new double[0], Jsonx.toDoubleArray("[]"), 0.0);
+        assertArrayEquals(new double[]{0.1, 1.1, 2.1, 3.1, 4.1, -9999.0}, Jsonx.toDoubleArray(doubleJson), 0.0);
+        assertNull(Jsonx.toDoubleArrayOrNull((String) null));
+        assertNull(Jsonx.toDoubleArrayOrNull("[]"));
+        assertNull(Jsonx.toDoubleArrayOrNull(haveNullJson));
+        assertArrayEquals(new double[]{0.1, 1.1, 2.1, 3.1, 4.1, -9999.0}, Jsonx.toDoubleArrayOrNull(doubleJson), 0.0);
     }
 
     @Test
     public void testToLongArray() throws JSONException {
         JSONArray longJsonArray = new JSONArray("[0,1,2,3,4,-9999]");
-        JSONArray haveNullJsonArray = new JSONArray();
-        haveNullJsonArray.put((Object) null);
+        JSONArray haveNullJsonArray = new JSONArray("[null]");
         try {
             Jsonx.toLongArray(haveNullJsonArray);
             fail();
@@ -830,18 +897,30 @@ public class JsonxTest {
         }
         assertArrayEquals(new long[0], Jsonx.toLongArray(new JSONArray()));
         assertArrayEquals(new long[]{0, 1, 2, 3, 4, -9999L}, Jsonx.toLongArray(longJsonArray));
-
-        assertNull(Jsonx.toLongArrayOrNull(null));
+        assertNull(Jsonx.toLongArrayOrNull((JSONArray) null));
         assertNull(Jsonx.toLongArrayOrNull(new JSONArray()));
         assertNull(Jsonx.toLongArrayOrNull(haveNullJsonArray));
         assertArrayEquals(new long[]{0, 1, 2, 3, 4, -9999L}, Jsonx.toLongArrayOrNull(longJsonArray));
+
+        String longJson = "[0,1,2,3,4,-9999]";
+        String haveNullJson = "[null]";
+        try {
+            Jsonx.toLongArray(haveNullJson);
+            fail();
+        } catch (JSONException ignored) {
+        }
+        assertArrayEquals(new long[0], Jsonx.toLongArray("[]"));
+        assertArrayEquals(new long[]{0, 1, 2, 3, 4, -9999L}, Jsonx.toLongArray(longJson));
+        assertNull(Jsonx.toLongArrayOrNull((String) null));
+        assertNull(Jsonx.toLongArrayOrNull("[]"));
+        assertNull(Jsonx.toLongArrayOrNull(haveNullJson));
+        assertArrayEquals(new long[]{0, 1, 2, 3, 4, -9999L}, Jsonx.toLongArrayOrNull(longJson));
     }
 
     @Test
     public void testToBooleanArray() throws JSONException {
         JSONArray booleanJsonArray = new JSONArray("[false,true,true,false,false,true]");
-        JSONArray haveNullJsonArray = new JSONArray();
-        haveNullJsonArray.put((Object) null);
+        JSONArray haveNullJsonArray = new JSONArray("[null]");
         try {
             Jsonx.toBooleanArray(haveNullJsonArray);
             fail();
@@ -850,10 +929,25 @@ public class JsonxTest {
         assertArrayEquals(new boolean[0], Jsonx.toBooleanArray(new JSONArray()));
         assertArrayEquals(new boolean[]{false, true, true, false, false, true}, Jsonx.toBooleanArray(booleanJsonArray));
 
-        assertNull(Jsonx.toBooleanArrayOrNull(null));
+        assertNull(Jsonx.toBooleanArrayOrNull((JSONArray) null));
         assertNull(Jsonx.toBooleanArrayOrNull(new JSONArray()));
         assertNull(Jsonx.toBooleanArrayOrNull(haveNullJsonArray));
         assertArrayEquals(new boolean[]{false, true, true, false, false, true}, Jsonx.toBooleanArrayOrNull(booleanJsonArray));
+
+        String booleanJson = "[false,true,true,false,false,true]";
+        String haveNullJson = "[null]";
+        try {
+            Jsonx.toBooleanArray(haveNullJson);
+            fail();
+        } catch (JSONException ignored) {
+        }
+        assertArrayEquals(new boolean[0], Jsonx.toBooleanArray("[]"));
+        assertArrayEquals(new boolean[]{false, true, true, false, false, true}, Jsonx.toBooleanArray(booleanJson));
+
+        assertNull(Jsonx.toBooleanArrayOrNull((String) null));
+        assertNull(Jsonx.toBooleanArrayOrNull("[]"));
+        assertNull(Jsonx.toBooleanArrayOrNull(haveNullJson));
+        assertArrayEquals(new boolean[]{false, true, true, false, false, true}, Jsonx.toBooleanArrayOrNull(booleanJson));
     }
 
     @Test

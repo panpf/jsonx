@@ -220,16 +220,28 @@ inline fun BooleanArray?.toJSONArrayOrNull(): JSONArray? = Jsonx.toJSONArrayOrNu
 
 
 /**
- * Convert JSONArray to the Bean
+ * Convert json to the Bean
  */
 @Throws(JSONException::class)
 inline fun <Bean> JSONObject.toBean(toBean: ToBean<Bean>): Bean = Jsonx.toBean(this, toBean)
 
 /**
- * Convert JSONArray to the Bean. If jsonObject is null or toBeanOrNull return null, then finally return null
+ * Convert json string to the Bean
+ */
+@Throws(JSONException::class)
+inline fun <Bean> String.jsonToBean(toBean: ToBean<Bean>): Bean = Jsonx.toBean(this, toBean)
+
+/**
+ * Convert json to the Bean. If jsonObject is null or toBeanOrNull return null, then finally return null
  */
 @Throws(JSONException::class)
 inline fun <Bean> JSONObject?.toBeanOrNull(toBeanOrNull: ToBeanOrNull<Bean>): Bean? = Jsonx.toBeanOrNull(this, toBeanOrNull)
+
+/**
+ * Convert json string to the Bean. If jsonObject is null or toBeanOrNull return null, then finally return null
+ */
+@Throws(JSONException::class)
+inline fun <Bean> String?.jsonToBeanOrNull(toBeanOrNull: ToBeanOrNull<Bean>): Bean? = Jsonx.toBeanOrNull(this, toBeanOrNull)
 
 
 /**
@@ -239,10 +251,22 @@ inline fun <Bean> JSONObject?.toBeanOrNull(toBeanOrNull: ToBeanOrNull<Bean>): Be
 inline fun <Bean> JSONArray.toBeanList(toBean: ToBean<Bean>): ArrayList<Bean> = Jsonx.toBeanList(this, toBean)
 
 /**
+ * Convert json array string to the Bean list
+ */
+@Throws(JSONException::class)
+inline fun <Bean> String.jsonToBeanList(toBean: ToBean<Bean>): ArrayList<Bean> = Jsonx.toBeanList(this, toBean)
+
+/**
  * Convert JSONArray to the Bean list. If jsonArray is null or empty, or toBeanOrNull all return null, then finally return null
  */
 @Throws(JSONException::class)
 inline fun <Bean> JSONArray?.toBeanListOrNull(toBeanOrNull: ToBeanOrNull<Bean>): ArrayList<Bean>? = Jsonx.toBeanListOrNull(this, toBeanOrNull)
+
+/**
+ * Convert json array string to the Bean list. If jsonArray is null or empty, or toBeanOrNull all return null, then finally return null
+ */
+@Throws(JSONException::class)
+inline fun <Bean> String?.jsonToBeanListOrNull(toBeanOrNull: ToBeanOrNull<Bean>): ArrayList<Bean>? = Jsonx.toBeanListOrNull(this, toBeanOrNull)
 
 /**
  * Convert JSONArray to the Bean array
@@ -251,10 +275,22 @@ inline fun <Bean> JSONArray?.toBeanListOrNull(toBeanOrNull: ToBeanOrNull<Bean>):
 inline fun <Bean> JSONArray.toBeanArray(toBean: ToBean<Bean>): Array<Bean> = Jsonx.toBeanArray(this, toBean)
 
 /**
+ * Convert json array string to the Bean array
+ */
+@Throws(JSONException::class)
+inline fun <Bean> String.jsonToBeanArray(toBean: ToBean<Bean>): Array<Bean> = Jsonx.toBeanArray(this, toBean)
+
+/**
  * Convert JSONArray to the Bean array. If jsonArray is null or empty, or toBeanOrNull all return null, then finally return null
  */
 @Throws(JSONException::class)
 inline fun <Bean> JSONArray?.toBeanArrayOrNull(toBeanOrNull: ToBeanOrNull<Bean>): Array<Bean>? = Jsonx.toBeanArrayOrNull(this, toBeanOrNull)
+
+/**
+ * Convert json array string to the Bean array. If jsonArray is null or empty, or toBeanOrNull all return null, then finally return null
+ */
+@Throws(JSONException::class)
+inline fun <Bean> String?.jsonToBeanArrayOrNull(toBeanOrNull: ToBeanOrNull<Bean>): Array<Bean>? = Jsonx.toBeanArrayOrNull(this, toBeanOrNull)
 
 
 /**
@@ -264,9 +300,20 @@ inline fun <Bean> JSONArray?.toBeanArrayOrNull(toBeanOrNull: ToBeanOrNull<Bean>)
 inline fun JSONArray.toStringArray(): Array<String> = Jsonx.toStringArray(this)
 
 /**
+ * Convert a json array string to a String array
+ */
+@Throws(JSONException::class)
+inline fun String.jsonToStringArray(): Array<String> = Jsonx.toStringArray(this)
+
+/**
  * Convert a JSONArray to a String array. If jsonArray is null or empty, or all item are not string, then finally return null
  */
 inline fun JSONArray?.toStringArrayOrNull(): Array<String>? = Jsonx.toStringArrayOrNull(this)
+
+/**
+ * Convert a json array string to a String array. If jsonArray is null or empty, or all item are not string, then finally return null
+ */
+inline fun String?.jsonToStringArrayOrNull(): Array<String>? = Jsonx.toStringArrayOrNull(this)
 
 /**
  * Convert a JSONArray to a String list
@@ -275,9 +322,20 @@ inline fun JSONArray?.toStringArrayOrNull(): Array<String>? = Jsonx.toStringArra
 inline fun JSONArray.toStringList(): ArrayList<String> = Jsonx.toStringList(this)
 
 /**
+ * Convert a json array string to a String list
+ */
+@Throws(JSONException::class)
+inline fun String.jsonToStringList(): ArrayList<String> = Jsonx.toStringList(this)
+
+/**
  * Convert a JSONArray to a String list. If jsonArray is null or empty, or all item are not string, then finally return null
  */
 inline fun JSONArray?.toStringListOrNull(): ArrayList<String>? = Jsonx.toStringListOrNull(this)
+
+/**
+ * Convert a json array string to a String list. If jsonArray is null or empty, or all item are not string, then finally return null
+ */
+inline fun String?.jsonToStringListOrNull(): ArrayList<String>? = Jsonx.toStringListOrNull(this)
 
 /**
  * Convert a JSONArray to a int array
@@ -286,9 +344,20 @@ inline fun JSONArray?.toStringListOrNull(): ArrayList<String>? = Jsonx.toStringL
 inline fun JSONArray.toIntArray(): IntArray = Jsonx.toIntArray(this)
 
 /**
+ * Convert a json array string to a int array
+ */
+@Throws(JSONException::class)
+inline fun String.jsonToIntArray(): IntArray = Jsonx.toIntArray(this)
+
+/**
  * Convert a JSONArray to a int array. If jsonArray is null or empty, or all item are not int, then finally return null
  */
 inline fun JSONArray?.toIntArrayOrNull(): IntArray? = Jsonx.toIntArrayOrNull(this)
+
+/**
+ * Convert a json array string to a int array. If jsonArray is null or empty, or all item are not int, then finally return null
+ */
+inline fun String?.jsonToIntArrayOrNull(): IntArray? = Jsonx.toIntArrayOrNull(this)
 
 /**
  * Convert a JSONArray to a double array
@@ -297,9 +366,20 @@ inline fun JSONArray?.toIntArrayOrNull(): IntArray? = Jsonx.toIntArrayOrNull(thi
 inline fun JSONArray.toDoubleArray(): DoubleArray = Jsonx.toDoubleArray(this)
 
 /**
+ * Convert a json array string to a double array
+ */
+@Throws(JSONException::class)
+inline fun String.jsonToDoubleArray(): DoubleArray = Jsonx.toDoubleArray(this)
+
+/**
  * Convert a JSONArray to a double array. If jsonArray is null or empty, or all item are not double, then finally return null
  */
 inline fun JSONArray?.toDoubleArrayOrNull(): DoubleArray? = Jsonx.toDoubleArrayOrNull(this)
+
+/**
+ * Convert a json array string to a double array. If jsonArray is null or empty, or all item are not double, then finally return null
+ */
+inline fun String?.jsonToDoubleArrayOrNull(): DoubleArray? = Jsonx.toDoubleArrayOrNull(this)
 
 /**
  * Convert a JSONArray to a long array
@@ -308,9 +388,20 @@ inline fun JSONArray?.toDoubleArrayOrNull(): DoubleArray? = Jsonx.toDoubleArrayO
 inline fun JSONArray.toLongArray(): LongArray = Jsonx.toLongArray(this)
 
 /**
+ * Convert a json array string to a long array
+ */
+@Throws(JSONException::class)
+inline fun String.jsonToLongArray(): LongArray = Jsonx.toLongArray(this)
+
+/**
  * Convert a JSONArray to a long array. If jsonArray is null or empty, or all item are not long, then finally return null
  */
 inline fun JSONArray?.toLongArrayOrNull(): LongArray? = Jsonx.toLongArrayOrNull(this)
+
+/**
+ * Convert a json array string to a long array. If jsonArray is null or empty, or all item are not long, then finally return null
+ */
+inline fun String?.jsonToLongArrayOrNull(): LongArray? = Jsonx.toLongArrayOrNull(this)
 
 /**
  * Convert a JSONArray to a boolean array
@@ -319,9 +410,20 @@ inline fun JSONArray?.toLongArrayOrNull(): LongArray? = Jsonx.toLongArrayOrNull(
 inline fun JSONArray.toBooleanArray(): BooleanArray = Jsonx.toBooleanArray(this)
 
 /**
+ * Convert a json array string to a boolean array
+ */
+@Throws(JSONException::class)
+inline fun String.jsonToBooleanArray(): BooleanArray = Jsonx.toBooleanArray(this)
+
+/**
  * Convert a JSONArray to a boolean array. If jsonArray is null or empty, or all item are not boolean, then finally return null
  */
 inline fun JSONArray?.toBooleanArrayOrNull(): BooleanArray? = Jsonx.toBooleanArrayOrNull(this)
+
+/**
+ * Convert a json array string to a boolean array. If jsonArray is null or empty, or all item are not boolean, then finally return null
+ */
+inline fun String?.jsonToBooleanArrayOrNull(): BooleanArray? = Jsonx.toBooleanArrayOrNull(this)
 
 
 /* ************************************* opt and get ***************************************** */
