@@ -1,4 +1,4 @@
-## new
+## v1.0.4
 * new: toBean, toString ... now supports direct incoming String
 
 ## v1.0.3
