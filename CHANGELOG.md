@@ -1,4 +1,4 @@
-## new
+## 1.0.3
 * change: ToBeanOrNull.toBean() rename to toBeanOrNull()
 
 ## v1.0.2
