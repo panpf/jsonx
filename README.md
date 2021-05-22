@@ -11,17 +11,14 @@ Extensions to the org.json standard library
 
 ## Getting Started
 
-This library has been published to `jcenter` and private repositories `https://dl.bintray.com/panpf/maven/`, you can freely choose where to download it
-
-Add the following to your `build.gradle` file
-
+This library has been published to `mavenCentral`, Add the following to your `build.gradle` file
 ```grovvy
-implementation "com.github.panpf:jsonx:$lastVersion"
-implementation "com.github.panpf:jsonx-ktx:$lastVersion" // Not required. Kotlin extension
-implementation "org.json:org.json:2.0"  // Not required. You need it if you are running on the java platform
+implementation "io.github.panpf.jsonx:jsonx:${lastVersion}"
+implementation "io.github.panpf.jsonx:jsonx-ktx:${lastVersion}" // Not required. Kotlin extension
+implementation "io.json:org.json:2.0"  // Not required. You need it if you are running on the java platform
 ```
 
-Please replace `$lastVersion` with the latest version: [![Download][version_java_icon]][version_java_link]
+`${lastVersion}`: [![Download][release_icon]][release_link] (no include 'v')
 
 Dependencies：
 * org.jetbrains:annotations: 13.0
@@ -202,10 +199,8 @@ Please view the [CHANGELOG.md] file
 [license_icon]: https://img.shields.io/badge/License-Apache%202-blue.svg
 [license_link]: https://www.apache.org/licenses/LICENSE-2.0
 
-[version_java_icon]: https://api.bintray.com/packages/panpf/maven/jsonx/images/download.svg
-[version_java_link]:https://bintray.com/panpf/maven/jsonx/_latestVersion
-[version_kotlin_icon]: https://api.bintray.com/packages/panpf/maven/jsonx-ktx/images/download.svg
-[version_kotlin_link]: https://bintray.com/panpf/maven/jsonx-ktx/_latestVersion
+[release_icon]: https://img.shields.io/maven-central/v/io.github.panpf.jsonx/jsonx
+[release_link]: https://repo1.maven.org/maven2/io/github/panpf/jsonx/
 
 [Jsonx.java]: jsonx/src/main/java/com/github/panpf/jsonx/Jsonx.java
 [JsonxTest.java]: jsonx/src/test/java/com/github/panpf/jsonx/test/JsonxTest.java
